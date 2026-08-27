@@ -28,6 +28,11 @@ tensorboard.txt
 # Local datasets and machine-specific symlinks
 data/
 
+# Local development notes and temporary regression tests
+/tests/
+/docs/
+/PROJECT_STATUS.md
+
 # Rollout artifacts; keep only compact aggregate summaries
 exp/*
 !exp/five_batch_summary.md
