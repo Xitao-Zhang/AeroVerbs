@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 2,
+  "skill": "through",
+  "scene_id": "auto_ring_00055",
+  "category": "ring",
+  "sample_relative_path": "through/auto_ring_00055",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    5.538049697875977,
+    -0.00067592051345855,
+    1.4720653295516968
+  ],
+  "expert_completion_index": 39,
+  "planner_completion_index": 60,
+  "reference_num_points": 61,
+  "reference_path_length_m": 3.7631111014317105,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.315947562456131,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        1.6380817890167236,
+        -0.0017450510058552027,
+        1.4875576496124268
+      ],
+      [
+        4.638149261474609,
+        -0.0009010343928821385,
+        1.4742388725280762
+      ],
+      [
+        5.538049697875977,
+        -0.00067592051345855,
+        1.4720653295516968
+      ]
+    ],
+    "guide": [
+      4.638149261474609,
+      -0.0009010343928821385,
+      1.4742388725280762
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.15,
+    "planning_time_s": 0.553920891135931,
+    "replan_count": 8,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/through/auto_ring_00055.npz",
+    "minimum_inflated_sdf_m": 0.11951212977576407,
+    "route_override": false,
+    "selected_attempt": "default",
+    "attempt_errors": [],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    }
+  },
+  "elapsed_s": 0.7329688742756844,
+  "output_relative_path": "through/auto_ring_00055"
+}

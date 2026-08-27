@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 5,
+  "skill": "through",
+  "scene_id": "auto_door_opening_00089",
+  "category": "door",
+  "sample_relative_path": "through/auto_door_opening_00089",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    5.639305114746094,
+    0.09703029692173004,
+    0.9088829755783081
+  ],
+  "expert_completion_index": 40,
+  "planner_completion_index": 61,
+  "reference_num_points": 62,
+  "reference_path_length_m": 3.86166297977583,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.39592626690864563,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        1.63959538936615,
+        0.13313977420330048,
+        0.8957307934761047
+      ],
+      [
+        4.669168472290039,
+        0.10407372564077377,
+        0.9067976474761963
+      ],
+      [
+        5.639305114746094,
+        0.09703029692173004,
+        0.9088829755783081
+      ]
+    ],
+    "guide": [
+      4.669168472290039,
+      0.10407372564077377,
+      0.9067976474761963
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.15,
+    "planning_time_s": 0.5246881917119026,
+    "replan_count": 9,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/through/auto_door_opening_00089.npz",
+    "minimum_inflated_sdf_m": 0.2709263190901575,
+    "route_override": false,
+    "selected_attempt": "default",
+    "attempt_errors": [],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    }
+  },
+  "elapsed_s": 0.6519498564302921,
+  "output_relative_path": "through/auto_door_opening_00089"
+}

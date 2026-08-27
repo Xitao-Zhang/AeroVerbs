@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-08-27",
+  "project": "AeroVerbs",
+  "evaluation_scope": {
+    "manifest_directory": "/root/AeroVerbs/eval_manifests",
+    "experiment_directory": "/root/AeroVerbs/exp",
+    "batch_ids": [1, 2, 3, 4, 5],
+    "batch_sizes": [51, 51, 51, 51, 50],
+    "total_samples": 254,
+    "unique_samples": 254,
+    "models": ["bc", "dagger"],
+    "success_definition": "status == success",
+    "render_during_rollout": false
+  },
+  "metric_definitions": {
+    "success_rate": "count(status == success) / N",
+    "semantic_completion_rate": "count(semantic_ok == true) / N; semantic_done is latched and is not an independent manually annotated accuracy metric",
+    "path_length_m": "sum of 3D Euclidean distances between consecutive rollout trajectory points",
+    "spl": "mean_i[S_i * L_i / max(P_i, L_i)], where S_i is 1 only for status == success, P_i is rollout path length, and L_i is the frozen Fast-Planner reference path length",
+    "batch_rate_sample_variance": "sample variance of the five per-batch success-rate proportions (denominator n-1)",
+    "batch_rate_sample_std": "sample standard deviation of the five per-batch success-rate proportions"
+  },
+  "batches": {
+    "1": {
+      "n": 51,
+      "bc": {"success": 39, "success_rate": 0.7647058823529411, "status_counts": {"success": 39, "collision": 6, "timeout": 6}},
+      "dagger": {"success": 45, "success_rate": 0.8823529411764706, "status_counts": {"success": 45, "collision": 6, "timeout": 0}}
+    },
+    "2": {
+      "n": 51,
+      "bc": {"success": 44, "success_rate": 0.8627450980392157, "status_counts": {"success": 44, "collision": 4, "timeout": 3}},
+      "dagger": {"success": 45, "success_rate": 0.8823529411764706, "status_counts": {"success": 45, "collision": 6, "timeout": 0}}
+    },
+    "3": {
+      "n": 51,
+      "bc": {"success": 44, "success_rate": 0.8627450980392157, "status_counts": {"success": 44, "collision": 6, "timeout": 1}},
+      "dagger": {"success": 41, "success_rate": 0.803921568627451, "status_counts": {"success": 41, "collision": 9, "timeout": 1}}
+    },
+    "4": {
+      "n": 51,
+      "bc": {"success": 44, "success_rate": 0.8627450980392157, "status_counts": {"success": 44, "collision": 4, "timeout": 3}},
+      "dagger": {"success": 45, "success_rate": 0.8823529411764706, "status_counts": {"success": 45, "collision": 5, "timeout": 1}}
+    },
+    "5": {
+      "n": 50,
+      "bc": {"success": 38, "success_rate": 0.76, "status_counts": {"success": 38, "collision": 8, "timeout": 4}},
+      "dagger": {"success": 41, "success_rate": 0.82, "status_counts": {"success": 41, "collision": 9, "timeout": 0}}
+    }
+  },
+  "aggregate": {
+    "bc": {
+      "n": 254,
+      "success": 209,
+      "success_rate": 0.8228346456692913,
+      "batch_rate_mean": 0.8225882352941177,
+      "batch_rate_sample_variance": 0.0030263437139561745,
+      "batch_rate_sample_std": 0.055012214225171614,
+      "semantic_completion_rate": 0.8543307086614174,
+      "spl": 0.7099706698335907,
+      "successful_path_length_mean_m": 5.574596122798863,
+      "status_counts": {"success": 209, "collision": 28, "timeout": 17},
+      "per_skill": {
+        "around_left": {"n": 75, "success": 63, "success_rate": 0.84, "semantic_completion_rate": 0.84, "spl": 0.6412414762926978},
+        "around_right": {"n": 75, "success": 55, "success_rate": 0.7333333333333333, "semantic_completion_rate": 0.7866666666666666, "spl": 0.5777912461897075},
+        "over": {"n": 44, "success": 31, "success_rate": 0.7045454545454546, "semantic_completion_rate": 0.7954545454545454, "spl": 0.6948702562892528},
+        "through": {"n": 50, "success": 50, "success_rate": 1.0, "semantic_completion_rate": 1.0, "spl": 0.9709755606379801},
+        "under": {"n": 10, "success": 10, "success_rate": 1.0, "semantic_completion_rate": 1.0, "spl": 0.9782026642925503}
+      }
+    },
+    "dagger": {
+      "n": 254,
+      "success": 217,
+      "success_rate": 0.8543307086614174,
+      "batch_rate_mean": 0.8541960784313725,
+      "batch_rate_sample_variance": 0.0015188312187620135,
+      "batch_rate_sample_std": 0.03897218519357124,
+      "semantic_completion_rate": 0.9291338582677166,
+      "spl": 0.7974555825167144,
+      "successful_path_length_mean_m": 4.80295520520008,
+      "status_counts": {"success": 217, "collision": 35, "timeout": 2},
+      "per_skill": {
+        "around_left": {"n": 75, "success": 59, "success_rate": 0.7866666666666666, "semantic_completion_rate": 0.9866666666666667, "spl": 0.6891187375665108},
+        "around_right": {"n": 75, "success": 73, "success_rate": 0.9733333333333334, "semantic_completion_rate": 0.9866666666666667, "spl": 0.90443692079646},
+        "over": {"n": 44, "success": 26, "success_rate": 0.5909090909090909, "semantic_completion_rate": 0.6590909090909091, "spl": 0.5880233417403301},
+        "through": {"n": 50, "success": 49, "success_rate": 0.98, "semantic_completion_rate": 0.98, "spl": 0.9475806951643788},
+        "under": {"n": 10, "success": 10, "success_rate": 1.0, "semantic_completion_rate": 1.0, "spl": 0.9784981787229168}
+      }
+    }
+  },
+  "paired_outcomes": {
+    "both_success": 187,
+    "bc_only_success": 22,
+    "dagger_only_success": 30,
+    "both_failed": 15
+  },
+  "audit": {
+    "complete": true,
+    "infrastructure_error_count": 0,
+    "total_result_records": 508,
+    "total_trajectory_files": 508,
+    "new_batch_2_to_5_trajectory_files": 406,
+    "batch_2_to_5_render_png_count": 0,
+    "manifest_membership_and_order_verified": true,
+    "trajectory_labels_and_point_counts_verified": true,
+    "manifest_and_checkpoint_hashes_verified": true
+  },
+  "notes": [
+    "The five frozen manifests partition all 254 evaluation cases without duplication; Batch 5 contains 50 cases.",
+    "The aggregate success rate is the exact rate on this 254-case evaluation set. Batch variance describes variation across the five frozen partitions.",
+    "semantic_completion_rate is based on the rollout semantic_ok field and should not be described as independent human-annotated semantic accuracy.",
+    "Fast-Planner paths are consistent frozen reference feasible paths; they are not guaranteed global mathematical shortest paths."
+  ]
+}

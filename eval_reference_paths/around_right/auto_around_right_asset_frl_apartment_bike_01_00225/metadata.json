@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 3,
+  "skill": "around_right",
+  "scene_id": "auto_around_right_asset_frl_apartment_bike_01_00225",
+  "category": "frl_apartment_bike_01",
+  "sample_relative_path": "around_right/auto_around_right_asset_frl_apartment_bike_01_00225",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    5.932563304901123,
+    -0.9627248048782349,
+    0.4888013005256653
+  ],
+  "expert_completion_index": 42,
+  "planner_completion_index": 61,
+  "reference_num_points": 62,
+  "reference_path_length_m": 4.1102085775205675,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.546002984046936,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        2.020629644393921,
+        0.11681584268808365,
+        0.37792345881462097
+      ],
+      [
+        4.8080034255981445,
+        -1.008321762084961,
+        0.4897279739379883
+      ],
+      [
+        5.932563304901123,
+        -0.9627248048782349,
+        0.4888013005256653
+      ]
+    ],
+    "guide": [
+      4.8080034255981445,
+      -1.008321762084961,
+      0.4897279739379883
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.5,
+    "planning_time_s": 0.6240771822631359,
+    "replan_count": 8,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/around_right/auto_around_right_asset_frl_apartment_bike_01_00225.npz",
+    "minimum_inflated_sdf_m": 0.42567824075452665,
+    "route_override": false,
+    "selected_attempt": "default",
+    "attempt_errors": [],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    }
+  },
+  "elapsed_s": 9.166139047592878,
+  "output_relative_path": "around_right/auto_around_right_asset_frl_apartment_bike_01_00225"
+}

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 4,
+  "skill": "over",
+  "scene_id": "auto_over_asset_frl_apartment_bin_03_00694",
+  "category": "frl_apartment_bin_03",
+  "sample_relative_path": "over/auto_over_asset_frl_apartment_bin_03_00694",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    6.084333419799805,
+    -0.03163226693868637,
+    2.252197742462158
+  ],
+  "expert_completion_index": 43,
+  "planner_completion_index": 55,
+  "reference_num_points": 56,
+  "reference_path_length_m": 4.209477847292387,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.5642068982124329,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        2.064385414123535,
+        -0.12449610978364944,
+        1.2699400186538696
+      ],
+      [
+        4.90976619720459,
+        -0.040610507130622864,
+        2.3740222454071045
+      ],
+      [
+        6.084333419799805,
+        -0.03163226693868637,
+        2.252197742462158
+      ]
+    ],
+    "guide": [
+      4.90976619720459,
+      -0.040610507130622864,
+      2.3740222454071045
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.2,
+    "planning_time_s": 0.5698019452393055,
+    "replan_count": 7,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/over/auto_over_asset_frl_apartment_bin_03_00694.npz",
+    "minimum_inflated_sdf_m": 0.3779272166733594,
+    "route_override": false,
+    "selected_attempt": "default",
+    "attempt_errors": [],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    }
+  },
+  "elapsed_s": 0.7866497375071049,
+  "output_relative_path": "over/auto_over_asset_frl_apartment_bin_03_00694"
+}

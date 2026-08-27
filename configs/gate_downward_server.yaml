@@ -1,0 +1,97 @@
+model:
+  num_skills: 5
+  radar_in_channels: 3
+  hidden: 256
+  intent_dim: 64
+  skill_dim: 32
+  radar_dim: 256
+  gate_feature_dim: 12
+  gate_dim: 64
+  downward_dim: 32
+  action_feature_dim: 64
+  use_heatmap_latent: false
+  K: 5
+  waypoint_dim: 3
+data:
+  data_root: /root/autodl-tmp/data/trajctorys
+  skills:
+  - around_left
+  - around_right
+  - through
+  - over
+  - under
+  heatmap_size:
+  - 120
+  - 160
+  radar_size:
+  - 40
+  - 500
+  r_max: 10.0
+  fov_deg:
+  - -5.0
+  - 35.0
+  action_history_len: 10
+  action_dim: 4
+  use_downward_range: true
+  downward_range_name: downward_range.npy
+  gate_summary_name: heatmap_gate_summary.json
+  gate_region_name: heatmap_gate_region.json
+  clearance_occupied_points: 1024
+  clearance_region_points: 512
+  future_offsets:
+  - 3
+  - 6
+  - 10
+  - 15
+  - 20
+  completion_tail_frac: 0.2
+  seq_len: 30
+  stride: 10
+  train_frac: 0.8
+  val_frac: 0.1
+  seed: 0
+  num_workers: 8
+  drop_last: true
+train:
+  epochs: 40
+  batch_size: 32
+  lr: 0.001
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  lambda_waypoint: 1.0
+  lambda_completion: 0.05
+  lambda_smooth: 0.05
+  lambda_temporal_direction: 0.1
+  lambda_action_consistency: 0.1
+  lambda_gate_cross: 0.5
+  lambda_gate_direction: 0.05
+  lambda_progress: 0.05
+  lambda_clearance: 1.0
+  clearance_drone_radius: 0.15
+  clearance_margin: 0.20
+  clearance_region_radius: 0.35
+  gate_waypoint_index: 2
+  gate_active_far_m: 4.0
+  gate_active_post_m: 0.5
+  completion_pos_weight: null
+  front_weights:
+  - 1.0
+  - 1.0
+  - 0.8
+  - 0.6
+  - 0.5
+  waypoint_axis_weights:
+  - 1.0
+  - 3.0
+  - 3.0
+  log_interval: 20
+  val_interval: 1
+  chunk_len: 20
+  trajectory_batch_size: 8
+  device: auto
+  output_dir: outputs
+  experiment: gate_downward_bc
+  run_name: null
+  use_amp: false
+  lr_scheduler: cosine
+  warmup_epochs: 1

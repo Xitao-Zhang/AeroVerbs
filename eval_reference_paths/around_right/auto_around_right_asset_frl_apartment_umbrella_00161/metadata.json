@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 5,
+  "skill": "around_right",
+  "scene_id": "auto_around_right_asset_frl_apartment_umbrella_00161",
+  "category": "frl_apartment_umbrella",
+  "sample_relative_path": "around_right/auto_around_right_asset_frl_apartment_umbrella_00161",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    6.078256607055664,
+    -1.0311945676803589,
+    1.5395442247390747
+  ],
+  "expert_completion_index": 45,
+  "planner_completion_index": 52,
+  "reference_num_points": 53,
+  "reference_path_length_m": 4.419430048272162,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.8554619550704956,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        1.8171265125274658,
+        -0.17481352388858795,
+        1.6995983123779297
+      ],
+      [
+        4.661891460418701,
+        -1.1791765689849854,
+        1.5153474807739258
+      ],
+      [
+        6.078256607055664,
+        -1.0311945676803589,
+        1.5395442247390747
+      ]
+    ],
+    "guide": [
+      4.661891460418701,
+      -1.1791765689849854,
+      1.5153474807739258
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.5,
+    "planning_time_s": 0.2843656502664089,
+    "replan_count": 5,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/around_right/auto_around_right_asset_frl_apartment_umbrella_00161.npz",
+    "minimum_inflated_sdf_m": 0.7055149156135211,
+    "route_override": false,
+    "selected_attempt": "default",
+    "attempt_errors": [],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    }
+  },
+  "elapsed_s": 0.4515392556786537,
+  "output_relative_path": "around_right/auto_around_right_asset_frl_apartment_umbrella_00161"
+}

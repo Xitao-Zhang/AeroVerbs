@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+*.pem
+*.key
+
+# Training checkpoints and generated outputs
+outputs/
+runs/
+*.pt
+*.pth
+*.ckpt
+*.log
+tensorboard.txt
+
+# Local datasets and machine-specific symlinks
+data/
+
+# Rollout artifacts; keep only compact aggregate summaries
+exp/*
+!exp/five_batch_summary.md
+!exp/five_batch_summary.json
+
+# Runtime state
+eval_reference_paths/progress.json
+.dsh-vision-router/
+
+# Editors / notebooks / OS
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store

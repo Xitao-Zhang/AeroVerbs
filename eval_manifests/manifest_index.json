@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "split": "test",
+  "data_root": "/root/autodl-tmp/data/trajctorys",
+  "split_seed": 0,
+  "sample_seed": 42,
+  "total_samples": 254,
+  "batch_sizes": [
+    51,
+    51,
+    51,
+    51,
+    50
+  ],
+  "skill_counts": {
+    "around_left": 75,
+    "around_right": 75,
+    "through": 50,
+    "over": 44,
+    "under": 10
+  },
+  "manifests": [
+    {
+      "batch_id": 1,
+      "file": "batch_1.json",
+      "num_samples": 51,
+      "sha256": "50181be95e63fa930f2ab5d7a7688e94824bade38ae36fde7f33b19105270b5f"
+    },
+    {
+      "batch_id": 2,
+      "file": "batch_2.json",
+      "num_samples": 51,
+      "sha256": "62a2ca410f76adcd46b0f51e8d5a2b002c979623e6ca5cf2934d006c531939f0"
+    },
+    {
+      "batch_id": 3,
+      "file": "batch_3.json",
+      "num_samples": 51,
+      "sha256": "7617a520d4a374ccd78b4271da0d9c30aace3a078f885f22e74b0214766e6383"
+    },
+    {
+      "batch_id": 4,
+      "file": "batch_4.json",
+      "num_samples": 51,
+      "sha256": "67167b20e3efa94ed4ffc37aac8d6fe42c0f84a2bfa929b2293a2acd50e50ece"
+    },
+    {
+      "batch_id": 5,
+      "file": "batch_5.json",
+      "num_samples": 50,
+      "sha256": "2ce2ae7dbb51359a9c6ee561e840739ba3d29d186fcbe85c889ddf2039a04dce"
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "batch_id": 5,
+  "split": "test",
+  "data_root": "/root/autodl-tmp/data/trajctorys",
+  "split_seed": 0,
+  "sample_seed": 42,
+  "num_samples": 50,
+  "skill_counts": {
+    "around_left": 15,
+    "around_right": 15,
+    "through": 10,
+    "over": 8,
+    "under": 2
+  },
+  "samples": [
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_lamp_02_00159",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_lamp_02_00159",
+      "category": "frl_apartment_lamp_02"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_column_00135",
+      "relative_path": "around_left/auto_around_left_column_00135",
+      "category": "column"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_column_00102",
+      "relative_path": "around_left/auto_around_left_column_00102",
+      "category": "column"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_column_00026",
+      "relative_path": "around_left/auto_around_left_column_00026",
+      "category": "column"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_cabinet_00326",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_cabinet_00326",
+      "category": "frl_apartment_cabinet"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_umbrella_00305",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_umbrella_00305",
+      "category": "frl_apartment_umbrella"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_indoor_plant_02_00220",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_indoor_plant_02_00220",
+      "category": "frl_apartment_indoor_plant_02"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_indoor_plant_01_00363",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_indoor_plant_01_00363",
+      "category": "frl_apartment_indoor_plant_01"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_bike_01_00027",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_bike_01_00027",
+      "category": "frl_apartment_bike_01"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_bike_02_00001",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_bike_02_00001",
+      "category": "frl_apartment_bike_02"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_refrigerator_00322",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_refrigerator_00322",
+      "category": "frl_apartment_refrigerator"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_asset_frl_apartment_lamp_01_00050",
+      "relative_path": "around_left/auto_around_left_asset_frl_apartment_lamp_01_00050",
+      "category": "frl_apartment_lamp_01"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_pillar_00072",
+      "relative_path": "around_left/auto_around_left_pillar_00072",
+      "category": "pillar"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_pillar_00127",
+      "relative_path": "around_left/auto_around_left_pillar_00127",
+      "category": "pillar"
+    },
+    {
+      "skill": "around_left",
+      "scene_id": "auto_around_left_pillar_00074",
+      "relative_path": "around_left/auto_around_left_pillar_00074",
+      "category": "pillar"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_umbrella_00161",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_umbrella_00161",
+      "category": "frl_apartment_umbrella"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_column_00050",
+      "relative_path": "around_right/auto_around_right_column_00050",
+      "category": "column"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_column_00012",
+      "relative_path": "around_right/auto_around_right_column_00012",
+      "category": "column"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_column_00060",
+      "relative_path": "around_right/auto_around_right_column_00060",
+      "category": "column"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_indoor_plant_01_00426",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_indoor_plant_01_00426",
+      "category": "frl_apartment_indoor_plant_01"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_refrigerator_00160",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_refrigerator_00160",
+      "category": "frl_apartment_refrigerator"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_indoor_plant_02_00310",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_indoor_plant_02_00310",
+      "category": "frl_apartment_indoor_plant_02"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_cabinet_00200",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_cabinet_00200",
+      "category": "frl_apartment_cabinet"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_bike_01_00117",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_bike_01_00117",
+      "category": "frl_apartment_bike_01"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_pillar_00129",
+      "relative_path": "around_right/auto_around_right_pillar_00129",
+      "category": "pillar"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_pillar_00071",
+      "relative_path": "around_right/auto_around_right_pillar_00071",
+      "category": "pillar"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_pillar_00108",
+      "relative_path": "around_right/auto_around_right_pillar_00108",
+      "category": "pillar"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_lamp_01_00068",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_lamp_01_00068",
+      "category": "frl_apartment_lamp_01"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_bike_02_00397",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_bike_02_00397",
+      "category": "frl_apartment_bike_02"
+    },
+    {
+      "skill": "around_right",
+      "scene_id": "auto_around_right_asset_frl_apartment_lamp_02_00294",
+      "relative_path": "around_right/auto_around_right_asset_frl_apartment_lamp_02_00294",
+      "category": "frl_apartment_lamp_02"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_door_opening_00121",
+      "relative_path": "through/auto_door_opening_00121",
+      "category": "door"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_door_opening_00089",
+      "relative_path": "through/auto_door_opening_00089",
+      "category": "door"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_door_opening_00191",
+      "relative_path": "through/auto_door_opening_00191",
+      "category": "door"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_door_opening_00051",
+      "relative_path": "through/auto_door_opening_00051",
+      "category": "door"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_window_opening_00094",
+      "relative_path": "through/auto_window_opening_00094",
+      "category": "window"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_window_opening_00018",
+      "relative_path": "through/auto_window_opening_00018",
+      "category": "window"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_window_opening_00010",
+      "relative_path": "through/auto_window_opening_00010",
+      "category": "window"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_window_opening_00074",
+      "relative_path": "through/auto_window_opening_00074",
+      "category": "window"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_ring_00072",
+      "relative_path": "through/auto_ring_00072",
+      "category": "ring"
+    },
+    {
+      "skill": "through",
+      "scene_id": "auto_ring_00005",
+      "relative_path": "through/auto_ring_00005",
+      "category": "ring"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_box_00002",
+      "relative_path": "over/auto_over_box_00002",
+      "category": "box"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_box_00119",
+      "relative_path": "over/auto_over_box_00119",
+      "category": "box"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_asset_frl_apartment_chair_04_00570",
+      "relative_path": "over/auto_over_asset_frl_apartment_chair_04_00570",
+      "category": "frl_apartment_chair_04"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_asset_frl_apartment_refrigerator_00396",
+      "relative_path": "over/auto_over_asset_frl_apartment_refrigerator_00396",
+      "category": "frl_apartment_refrigerator"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_asset_frl_apartment_bin_03_00198",
+      "relative_path": "over/auto_over_asset_frl_apartment_bin_03_00198",
+      "category": "frl_apartment_bin_03"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_asset_frl_apartment_bin_02_00437",
+      "relative_path": "over/auto_over_asset_frl_apartment_bin_02_00437",
+      "category": "frl_apartment_bin_02"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_asset_frl_apartment_bin_01_00196",
+      "relative_path": "over/auto_over_asset_frl_apartment_bin_01_00196",
+      "category": "frl_apartment_bin_01"
+    },
+    {
+      "skill": "over",
+      "scene_id": "auto_over_asset_frl_apartment_chair_05_00027",
+      "relative_path": "over/auto_over_asset_frl_apartment_chair_05_00027",
+      "category": "frl_apartment_chair_05"
+    },
+    {
+      "skill": "under",
+      "scene_id": "auto_under_table_frl_apartment_table_04_00055",
+      "relative_path": "under/auto_under_table_frl_apartment_table_04_00055",
+      "category": "frl_apartment_table_04"
+    },
+    {
+      "skill": "under",
+      "scene_id": "auto_under_table_frl_apartment_table_01_00020",
+      "relative_path": "under/auto_under_table_frl_apartment_table_01_00020",
+      "category": "frl_apartment_table_01"
+    }
+  ]
+}

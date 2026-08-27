@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 5,
+  "skill": "through",
+  "scene_id": "auto_window_opening_00018",
+  "category": "window",
+  "sample_relative_path": "through/auto_window_opening_00018",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    5.612089157104492,
+    0.13136395812034607,
+    1.536452293395996
+  ],
+  "expert_completion_index": 40,
+  "planner_completion_index": 69,
+  "reference_num_points": 70,
+  "reference_path_length_m": 3.99800970945031,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.3343139886856079,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        1.6127625703811646,
+        0.13217882812023163,
+        1.5183120965957642
+      ],
+      [
+        4.6213483810424805,
+        0.13090677559375763,
+        1.5343140363693237
+      ],
+      [
+        5.612089157104492,
+        0.13136395812034607,
+        1.536452293395996
+      ]
+    ],
+    "guide": [
+      4.6213483810424805,
+      0.13090677559375763,
+      1.5343140363693237
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.15,
+    "planning_time_s": 0.6007610708475113,
+    "replan_count": 9,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/through/auto_window_opening_00018.npz",
+    "minimum_inflated_sdf_m": 0.15931400719508582,
+    "route_override": false,
+    "selected_attempt": "default",
+    "attempt_errors": [],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    }
+  },
+  "elapsed_s": 0.7475029118359089,
+  "output_relative_path": "through/auto_window_opening_00018"
+}

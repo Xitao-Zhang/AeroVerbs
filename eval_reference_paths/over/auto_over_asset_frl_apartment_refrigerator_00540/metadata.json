@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 2,
+  "skill": "over",
+  "scene_id": "auto_over_asset_frl_apartment_refrigerator_00540",
+  "category": "frl_apartment_refrigerator",
+  "sample_relative_path": "over/auto_over_asset_frl_apartment_refrigerator_00540",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    6.153769016265869,
+    1.277253270149231,
+    3.031792163848877
+  ],
+  "expert_completion_index": 69,
+  "planner_completion_index": 44,
+  "reference_num_points": 45,
+  "reference_path_length_m": 5.211987681928592,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.403298556804657,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        2.4505395889282227,
+        -0.07177972793579102,
+        1.2133065462112427
+      ],
+      [
+        5.656874656677246,
+        1.6362335681915283,
+        3.690262794494629
+      ],
+      [
+        6.153769016265869,
+        1.277253270149231,
+        3.031792163848877
+      ]
+    ],
+    "guide": [
+      3.3108885288238525,
+      0.7432507872581482,
+      2.917208671569824
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.2,
+    "planning_time_s": 0.27716000005602837,
+    "replan_count": 4,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/over/auto_over_asset_frl_apartment_refrigerator_00540.npz",
+    "minimum_inflated_sdf_m": 0.255207085228344,
+    "route_override": true,
+    "selected_attempt": "hard_semantic_guide",
+    "attempt_errors": [
+      {
+        "attempt": "default",
+        "error": "ValueError('trajectory never reaches completion')"
+      }
+    ],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    },
+    "semantic_guide_fallback": {
+      "source": "expert_first_semantic_done",
+      "expert_index": 60,
+      "point": [
+        5.656874656677246,
+        1.6362335681915283,
+        3.690262794494629
+      ]
+    }
+  },
+  "elapsed_s": 1.8436487801373005,
+  "output_relative_path": "over/auto_over_asset_frl_apartment_refrigerator_00540"
+}

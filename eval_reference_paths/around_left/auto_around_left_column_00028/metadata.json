@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "valid",
+  "batch_id": 4,
+  "skill": "around_left",
+  "scene_id": "auto_around_left_column_00028",
+  "category": "column",
+  "sample_relative_path": "around_left/auto_around_left_column_00028",
+  "reference_endpoint_source": "expert_first_completion",
+  "reference_endpoint": [
+    6.267529010772705,
+    1.2262873649597168,
+    1.507691502571106
+  ],
+  "expert_completion_index": 48,
+  "planner_completion_index": 57,
+  "reference_num_points": 58,
+  "reference_path_length_m": 4.6661742724374635,
+  "planner_success": true,
+  "completion_validated": true,
+  "collision_radius_m": 0.15,
+  "minimum_authoritative_clearance_m": 0.9984526038169861,
+  "planner_config": {
+    "collision_radius": 0.15,
+    "preferred_clearance": null,
+    "replan_interval": 1,
+    "timeout_s": 10.0,
+    "bounds_margin": 1.5,
+    "max_iter": 2000,
+    "optimization_max_iter": 80,
+    "optimize": true,
+    "frame_dt": 0.1,
+    "max_start_speed": 3.0,
+    "cached_path_max_distance": 0.75
+  },
+  "planner_config_hash": "b74f6bef6ee12f5ff6cddb0559e582d3166d7c2891b4e08fd938b6ededa7af92",
+  "completion_config": {
+    "d_exit": 0.4,
+    "sustain_frames": 3,
+    "vertical_margin": 0.2,
+    "over_vertical_margin": 0.0,
+    "far_eps": 0.3,
+    "ground_z_min": 0.2
+  },
+  "completion_config_hash": "98b0e09985080a0668cd5a6a33c2a99e657714b4062956a683e50d48415c33c5",
+  "planner_diagnostics": {
+    "route_points": [
+      [
+        1.744067668914795,
+        0.17481350898742676,
+        1.5077171325683594
+      ],
+      [
+        4.525750637054443,
+        1.298453688621521,
+        1.506570816040039
+      ],
+      [
+        6.267529010772705,
+        1.2262873649597168,
+        1.507691502571106
+      ]
+    ],
+    "guide": [
+      4.525750637054443,
+      1.298453688621521,
+      1.506570816040039
+    ],
+    "guide_source": "expert_crossing_region_soft",
+    "preferred_clearance_m": 0.5,
+    "planning_time_s": 0.3308955207467079,
+    "replan_count": 6,
+    "sdf_path": "/root/autodl-tmp/data/trajctorys/_sdf/around_left/auto_around_left_column_00028.npz",
+    "minimum_inflated_sdf_m": 0.8234525230048291,
+    "route_override": false,
+    "selected_attempt": "default",
+    "attempt_errors": [],
+    "effective_planner_config": {
+      "collision_radius": 0.15,
+      "preferred_clearance": null,
+      "replan_interval": 1,
+      "timeout_s": 10.0,
+      "bounds_margin": 1.5,
+      "max_iter": 2000,
+      "optimization_max_iter": 80,
+      "optimize": true,
+      "frame_dt": 0.1,
+      "max_start_speed": 3.0,
+      "cached_path_max_distance": 0.75
+    }
+  },
+  "elapsed_s": 0.42488864436745644,
+  "output_relative_path": "around_left/auto_around_left_column_00028"
+}
