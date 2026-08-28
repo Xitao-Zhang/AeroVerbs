@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Build a coarse 3D semantic gate from the initial heatmap and lidar range."""
 
+from __future__ import annotations
+
 import argparse
 from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from dataclasses import dataclass

@@ -26,7 +26,7 @@ runs/
 tensorboard.txt
 
 # Local datasets and machine-specific symlinks
-data/
+/data/
 
 # Local development notes and temporary regression tests
 /tests/
