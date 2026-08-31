@@ -41,6 +41,7 @@ exp/*
 # Runtime state
 eval_reference_paths/progress.json
 .dsh-vision-router/
+.worktrees/
 
 # Editors / notebooks / OS
 .ipynb_checkpoints/
