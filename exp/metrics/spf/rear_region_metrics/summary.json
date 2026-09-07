@@ -1,0 +1,175 @@
+{
+  "configuration": {
+    "data_root": "/data/UAV_Basic_Skills/trajctorys",
+    "exp_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/exp",
+    "expert_trajectory_used": false,
+    "gate_used": false,
+    "lateral_margin_m": 0.35,
+    "models": [
+      "spf"
+    ],
+    "rear_clearance_m": 0.15,
+    "rear_direction": "+x",
+    "score_definition": "exp(-rear_region_distance_m / score_scale_m)",
+    "score_scale_m": 0.5,
+    "voxel_size_m": 0.08
+  },
+  "overall": {
+    "spf": {
+      "count": 246,
+      "reached_count": 51,
+      "reached_rate": 0.2073170731707317,
+      "rear_region_axial_gap_m": {
+        "mean": 0.8900000542159975,
+        "median": 0.29455736160278345
+      },
+      "rear_region_depth_m": {
+        "mean": 0.13461144664423244,
+        "median": 0.0
+      },
+      "rear_region_distance_m": {
+        "mean": 1.1622246329568262,
+        "median": 0.4859708023071292
+      },
+      "rear_region_lateral_distance_m": {
+        "mean": 0.5233249499794981,
+        "median": 0.0425318942777812
+      },
+      "rear_region_score": {
+        "mean": 0.44068782055989564,
+        "median": 0.37834772418178875
+      }
+    }
+  },
+  "per_skill": {
+    "spf": {
+      "around_left": {
+        "count": 74,
+        "reached_count": 10,
+        "reached_rate": 0.13513513513513514,
+        "rear_region_axial_gap_m": {
+          "mean": 0.6902878703297799,
+          "median": 0.326629505157471
+        },
+        "rear_region_depth_m": {
+          "mean": 0.0367771671913765,
+          "median": 0.0
+        },
+        "rear_region_distance_m": {
+          "mean": 1.1292993498052073,
+          "median": 0.6475710757312491
+        },
+        "rear_region_lateral_distance_m": {
+          "mean": 0.8159244004042535,
+          "median": 0.514354111536041
+        },
+        "rear_region_score": {
+          "mean": 0.3921362741108152,
+          "median": 0.2738777164190934
+        }
+      },
+      "around_right": {
+        "count": 75,
+        "reached_count": 18,
+        "reached_rate": 0.24,
+        "rear_region_axial_gap_m": {
+          "mean": 0.7429529373168948,
+          "median": 0.3932716751098635
+        },
+        "rear_region_depth_m": {
+          "mean": 0.07883227106730134,
+          "median": 0.0
+        },
+        "rear_region_distance_m": {
+          "mean": 0.8019569191106101,
+          "median": 0.46908532087818
+        },
+        "rear_region_lateral_distance_m": {
+          "mean": 0.18812670036221518,
+          "median": 0.0
+        },
+        "rear_region_score": {
+          "mean": 0.4895717152228526,
+          "median": 0.39134308763618564
+        }
+      },
+      "over": {
+        "count": 37,
+        "reached_count": 3,
+        "reached_rate": 0.08108108108108109,
+        "rear_region_axial_gap_m": {
+          "mean": 2.2348260086935925,
+          "median": 0.8029530906677254
+        },
+        "rear_region_depth_m": {
+          "mean": 0.014822720192574123,
+          "median": 0.0
+        },
+        "rear_region_distance_m": {
+          "mean": 2.682921124191769,
+          "median": 1.7901229801024503
+        },
+        "rear_region_lateral_distance_m": {
+          "mean": 0.893384824099897,
+          "median": 0.7485684099793435
+        },
+        "rear_region_score": {
+          "mean": 0.20976146025688425,
+          "median": 0.02786884278591329
+        }
+      },
+      "through": {
+        "count": 50,
+        "reached_count": 20,
+        "reached_rate": 0.4,
+        "rear_region_axial_gap_m": {
+          "mean": 0.31832016048431416,
+          "median": 0.0
+        },
+        "rear_region_depth_m": {
+          "mean": 0.47864089050292946,
+          "median": 0.0
+        },
+        "rear_region_distance_m": {
+          "mean": 0.4893801809926539,
+          "median": 0.14400263309478797
+        },
+        "rear_region_lateral_distance_m": {
+          "mean": 0.20326040936515388,
+          "median": 0.0
+        },
+        "rear_region_score": {
+          "mean": 0.690815937648162,
+          "median": 0.7500865858445518
+        }
+      },
+      "under": {
+        "count": 10,
+        "reached_count": 0,
+        "reached_rate": 0.0,
+        "rear_region_axial_gap_m": {
+          "mean": 1.3532670288085944,
+          "median": 1.4905299472808844
+        },
+        "rear_region_depth_m": {
+          "mean": 0.0,
+          "median": 0.0
+        },
+        "rear_region_distance_m": {
+          "mean": 1.845524824376998,
+          "median": 1.9468151132911036
+        },
+        "rear_region_lateral_distance_m": {
+          "mean": 1.1031770577921745,
+          "median": 1.1575406613945964
+        },
+        "rear_region_score": {
+          "mean": 0.03712700199072488,
+          "median": 0.02038212639455032
+        }
+      }
+    }
+  },
+  "record_count": 246,
+  "schema_version": 1
+}

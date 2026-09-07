@@ -1,7 +1,7 @@
 from .interfaces import PlannerParams, PlanningRequest, SemanticScene, Skill
 from .fast_planner import FastPlannerConfig, FastPlannerManager
 from .registry import ObjectLocalFrame, ObjectRegistry, SemanticObject
-from .scenes import create_demo_scene, create_scene
+from .scenes import create_demo_scene, create_scene, create_test_scene
 from .semantic_regions import SemanticFreeRegion, build_semantic_free_region
 from .trajectory import (
     SemanticLabel,
@@ -34,6 +34,7 @@ __all__ = [
     "build_semantic_free_region",
     "create_demo_scene",
     "create_scene",
+    "create_test_scene",
     "path_is_collision_free",
     "plan_fast_esdf_trajectory",
     "plan_grid_trajectory",

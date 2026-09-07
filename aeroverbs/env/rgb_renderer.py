@@ -10,7 +10,11 @@ the lightweight radar-only environment.
 from __future__ import annotations
 
 import argparse
+import contextlib
+import ctypes
 import json
+import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Sequence, Union
@@ -21,6 +25,51 @@ from scipy.spatial.transform import Rotation as R
 
 
 PathLike = Union[str, Path]
+
+
+def _configure_quiet_habitat_logging() -> None:
+    """Suppress Habitat/Magnum initialization chatter unless explicitly configured."""
+
+    os.environ.setdefault("MAGNUM_LOG", "quiet")
+    os.environ.setdefault("HABITAT_SIM_LOG", "quiet")
+
+
+def _flush_native_streams() -> None:
+    try:
+        ctypes.CDLL(None).fflush(None)
+    except Exception:
+        pass
+
+
+@contextlib.contextmanager
+def _suppress_native_habitat_output():
+    """Silence native Habitat/Magnum output while preserving Python exceptions."""
+
+    quiet = (
+        os.environ.get("MAGNUM_LOG") == "quiet"
+        and os.environ.get("HABITAT_SIM_LOG") == "quiet"
+    )
+    if not quiet:
+        yield
+        return
+
+    sys.stdout.flush()
+    sys.stderr.flush()
+    _flush_native_streams()
+    saved_stdout = os.dup(1)
+    saved_stderr = os.dup(2)
+    devnull = os.open(os.devnull, os.O_WRONLY)
+    try:
+        os.dup2(devnull, 1)
+        os.dup2(devnull, 2)
+        yield
+    finally:
+        _flush_native_streams()
+        os.dup2(saved_stdout, 1)
+        os.dup2(saved_stderr, 2)
+        os.close(devnull)
+        os.close(saved_stdout)
+        os.close(saved_stderr)
 
 
 @dataclass(frozen=True)
@@ -34,10 +83,10 @@ class SampleRGBFrame:
 
 
 def std_to_habitat(point: Sequence[float]) -> np.ndarray:
-    """Convert AeroVerbs' z-up ``(x, y, z)`` into Habitat ``(x, z, y)``."""
+    """Rotate AeroVerbs z-up coordinates into Habitat's y-up frame."""
 
     x, y, z = np.asarray(point, dtype=np.float32)
-    return np.array([x, z, y], dtype=np.float32)
+    return np.array([x, z, -y], dtype=np.float32)
 
 
 def composite_empty_background(observation: np.ndarray) -> np.ndarray:
@@ -128,42 +177,44 @@ class HabitatRGBRenderer:
 
         if self._sim is not None:
             return self
-        try:
-            import habitat_sim
-            import habitat_sim.gfx as gfx
-        except ImportError as exc:
-            raise ImportError(
-                "HabitatRGBRenderer requires habitat-sim; run it from the visfly "
-                "environment used to collect AeroVerbs data."
-            ) from exc
+        _configure_quiet_habitat_logging()
+        with _suppress_native_habitat_output():
+            try:
+                import habitat_sim
+                import habitat_sim.gfx as gfx
+            except ImportError as exc:
+                raise ImportError(
+                    "HabitatRGBRenderer requires habitat-sim; run it from the visfly "
+                    "environment used to collect AeroVerbs data."
+                ) from exc
 
-        sim_cfg = habitat_sim.SimulatorConfiguration()
-        sim_cfg.scene_id = str(self.scene_path)
-        sim_cfg.enable_physics = False
-        sim_cfg.scene_light_setup = gfx.DEFAULT_LIGHTING_KEY
-        sim_cfg.override_scene_light_defaults = True
-        sim_cfg.gpu_device_id = self.gpu_device_id
+            sim_cfg = habitat_sim.SimulatorConfiguration()
+            sim_cfg.scene_id = str(self.scene_path)
+            sim_cfg.enable_physics = False
+            sim_cfg.scene_light_setup = gfx.DEFAULT_LIGHTING_KEY
+            sim_cfg.override_scene_light_defaults = True
+            sim_cfg.gpu_device_id = self.gpu_device_id
 
-        color_spec = habitat_sim.CameraSensorSpec()
-        color_spec.uuid = "color"
-        color_spec.sensor_type = habitat_sim.SensorType.COLOR
-        color_spec.resolution = [self.height, self.width]
-        color_spec.position = [0.0, 0.0, 0.0]
+            color_spec = habitat_sim.CameraSensorSpec()
+            color_spec.uuid = "color"
+            color_spec.sensor_type = habitat_sim.SensorType.COLOR
+            color_spec.resolution = [self.height, self.width]
+            color_spec.position = [0.0, 0.0, 0.0]
 
-        agent_cfg = habitat_sim.agent.AgentConfiguration()
-        agent_cfg.sensor_specifications = [color_spec]
-        self._sim = habitat_sim.Simulator(
-            habitat_sim.Configuration(sim_cfg, [agent_cfg])
-        )
-        self._sim.set_light_setup(
-            [
-                gfx.LightInfo(
-                    vector=[-2.0, -2.0, -1.0, 0.0],
-                    model=gfx.LightPositionModel.Camera,
-                )
-            ]
-        )
-        self._agent = self._sim.initialize_agent(0)
+            agent_cfg = habitat_sim.agent.AgentConfiguration()
+            agent_cfg.sensor_specifications = [color_spec]
+            self._sim = habitat_sim.Simulator(
+                habitat_sim.Configuration(sim_cfg, [agent_cfg])
+            )
+            self._sim.set_light_setup(
+                [
+                    gfx.LightInfo(
+                        vector=[-2.0, -2.0, -1.0, 0.0],
+                        model=gfx.LightPositionModel.Camera,
+                    )
+                ]
+            )
+            self._agent = self._sim.initialize_agent(0)
         return self
 
     def render(
@@ -180,20 +231,25 @@ class HabitatRGBRenderer:
         target_hab = std_to_habitat(position + forward)
 
         import habitat_sim
+        from habitat_sim.utils.common import quat_from_coeffs
 
         state = habitat_sim.AgentState()
         state.position = eye_hab
-        state.rotation = _front_center_camera_rotation(eye_hab, target_hab)
+        state.rotation = quat_from_coeffs(
+            _front_center_camera_rotation(eye_hab, target_hab)
+        )
         self._agent.set_state(state)
-        observation = self._sim.get_sensor_observations()["color"]
-        rgb = np.fliplr(composite_empty_background(observation))
+        with _suppress_native_habitat_output():
+            observation = self._sim.get_sensor_observations()["color"]
+        rgb = composite_empty_background(observation)
         return np.ascontiguousarray(rgb, dtype=np.uint8)
 
     def close(self) -> None:
         """Release the Habitat simulator and its graphics resources."""
 
         if self._sim is not None:
-            self._sim.close()
+            with _suppress_native_habitat_output():
+                self._sim.close()
         self._sim = None
         self._agent = None
 

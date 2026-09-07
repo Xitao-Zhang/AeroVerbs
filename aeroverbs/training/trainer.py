@@ -268,7 +268,6 @@ def _run_batch(
     optimizer: Optional[torch.optim.Optimizer] = None,
 ) -> Dict[str, float]:
     """Windowed training step (compatibility path)."""
-    heatmap = batch["heatmap"].to(device)
     skill_id = batch["skill_id"].to(device)
     radar = batch["radar"].to(device)
     action_history = batch["action_history"].to(device)
@@ -293,7 +292,7 @@ def _run_batch(
         optimizer.zero_grad(set_to_none=True)
 
     waypoints, completion, progress = model(
-        heatmap, skill_id, radar, action_history, action_history_mask,
+        None, skill_id, radar, action_history, action_history_mask,
         downward_range, gate_features
     )
     loss, components = _loss_components(
@@ -352,7 +351,6 @@ def _evaluate_trajectory(
     agg: Dict[str, float] = {}
     count = 0
     for batch in loader:
-        heatmap = batch["heatmap"].to(device)
         skill_id = batch["skill_id"].to(device)
         radar = batch["radar"].to(device)
         action_history = batch["action_history"].to(device)
@@ -374,7 +372,7 @@ def _evaluate_trajectory(
         comp_target = batch["completion"].to(device)
 
         waypoints, completion, progress = model(
-            heatmap, skill_id, radar, action_history, action_history_mask,
+            None, skill_id, radar, action_history, action_history_mask,
             downward_range, gate_features
         )
         time_mask = batch.get("time_mask")
@@ -409,7 +407,6 @@ def _run_trajectory_chunk(
     cfg: Config,
     device: torch.device,
     optimizer: Optional[torch.optim.Optimizer],
-    heatmap: torch.Tensor,
     skill_id: torch.Tensor,
     hidden: torch.Tensor,
     start: int,
@@ -417,7 +414,7 @@ def _run_trajectory_chunk(
 ) -> Tuple[Dict[str, float], torch.Tensor]:
     """Run one TBPTT chunk.
 
-    The intent/skill encoders are re-run for every chunk so each chunk owns an
+    The skill encoder is re-run for every chunk so each chunk owns an
     independent graph (standard TBPTT practice for shared activations); the GRU
     hidden is carried across chunks and detached after this chunk.
     """
@@ -443,7 +440,7 @@ def _run_trajectory_chunk(
     if time_mask is not None:
         time_mask = time_mask.to(device)
 
-    z_intent, z_skill, init_hidden = model.initialize(heatmap, skill_id)
+    z_intent, z_skill, init_hidden = model.initialize(None, skill_id)
     if hidden is None:
         hidden = init_hidden
 
@@ -602,7 +599,6 @@ def train(cfg: Config, resume_from: Optional[str] = None) -> AeroVerbsPolicy:
         t0 = time.time()
         pbar = tqdm(train_loader, desc=f"{_now()} epoch {epoch + 1}/{cfg.train.epochs}")
         for batch in pbar:
-            heatmap = batch["heatmap"].to(device)
             skill_id = batch["skill_id"].to(device)
             hidden = None
             T = int(batch["radar"].shape[1])
@@ -610,7 +606,7 @@ def train(cfg: Config, resume_from: Optional[str] = None) -> AeroVerbsPolicy:
                 end = min(start + chunk_len, T)
                 comps, hidden = _run_trajectory_chunk(
                     model, batch, cfg, device, optimizer,
-                    heatmap, skill_id, hidden, start, end,
+                    skill_id, hidden, start, end,
                 )
                 for k, v in comps.items():
                     epoch_metrics[k] = epoch_metrics.get(k, 0.0) + v

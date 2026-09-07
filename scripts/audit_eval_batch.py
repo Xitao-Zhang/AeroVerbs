@@ -6,14 +6,14 @@ from pathlib import Path
 
 project = Path('/root/AeroVerbs')
 manifest_path = project / 'eval_manifests/batch_1.json'
-batch_root = project / 'exp/batch_1'
+rollout_root = project / 'exp/rollouts'
 manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
 expected = [(s['skill'], s['scene_id']) for s in manifest['samples']]
 assert len(expected) == 51 and len(set(expected)) == 51
 
 all_results = {}
 for model_name in ('bc', 'dagger'):
-    output = batch_root / model_name
+    output = rollout_root / model_name / 'batch_1'
     lines = [line for line in (output / 'results.jsonl').read_text(encoding='utf-8').splitlines() if line]
     records = [json.loads(line) for line in lines]
     keys = [(r['skill'], r['scene_id']) for r in records]
@@ -59,6 +59,6 @@ print('paired', {
     'dagger_only_success': paired[(False, True)],
     'both_failed': paired[(False, False)],
 })
-print('png_count', len(list(batch_root.rglob('*.png'))))
-print('trajectory_count', len(list(batch_root.rglob('trajectories/*.json'))))
+print('png_count', len(list(rollout_root.rglob('*.png'))))
+print('trajectory_count', len(list(rollout_root.rglob('trajectories/*.json'))))
 print('AUDIT_OK')

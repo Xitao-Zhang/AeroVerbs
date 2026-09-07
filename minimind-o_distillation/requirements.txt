@@ -1,0 +1,6 @@
+numpy>=1.26
+Pillow>=9.5
+PyYAML>=6.0
+pyarrow>=14.0
+torch>=2.2
+transformers>=4.57,<5

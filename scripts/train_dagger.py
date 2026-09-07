@@ -186,7 +186,6 @@ def main():
         t0 = time.time()
         pbar = tqdm(train_loader, desc=f"dagger epoch {epoch + 1}/{cfg.train.epochs}")
         for batch in pbar:
-            heatmap = batch["heatmap"].to(device)
             skill_id = batch["skill_id"].to(device)
             hidden = None
             T_len = int(batch["radar"].shape[1])
@@ -194,7 +193,7 @@ def main():
                 end = min(start + chunk_len, T_len)
                 comps, hidden = T._run_trajectory_chunk(
                     model, batch, cfg, device, optimizer,
-                    heatmap, skill_id, hidden, start, end,
+                    skill_id, hidden, start, end,
                 )
                 for k, v in comps.items():
                     epoch_metrics[k] = epoch_metrics.get(k, 0.0) + v

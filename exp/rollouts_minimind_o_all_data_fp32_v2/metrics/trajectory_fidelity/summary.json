@@ -1,0 +1,210 @@
+{
+  "configuration": {
+    "distance_threshold_m": 0.5,
+    "exp_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/exp/rollouts_minimind_o_all_data_fp32_v2",
+    "expert_crop_rule": "max_x",
+    "expert_crop_rule_description": "crop expert path at its first interpolated crossing of the rollout maximum x; use the full expert path when rollout maximum x reaches or exceeds expert maximum x",
+    "expert_path_source": "frames.json:camera_position_std",
+    "expert_root": "/data/UAV_Basic_Skills/trajctorys",
+    "gate_used": false,
+    "models": [
+      "dagger"
+    ],
+    "resample_step_m": 0.1
+  },
+  "overall": {
+    "dagger": {
+      "cls": {
+        "mean": 0.44289979774988214,
+        "median": 0.4191162777568926
+      },
+      "count": 254,
+      "expert_crop_fraction": {
+        "mean": 0.6482003818437273,
+        "median": 0.6483635165651327
+      },
+      "length_score": {
+        "mean": 0.6331648175607775,
+        "median": 0.6293351974750904
+      },
+      "ndtw": {
+        "mean": 0.570207767245247,
+        "median": 0.5773280245873348
+      },
+      "path_coverage": {
+        "mean": 0.6580880772286564,
+        "median": 0.6637326614756787
+      },
+      "rollout_length_m": {
+        "mean": 4.859858966466089,
+        "median": 4.700106380449321
+      },
+      "status_counts": {
+        "collision": 36,
+        "success": 217,
+        "timeout": 1
+      }
+    }
+  },
+  "per_skill": {
+    "dagger": {
+      "around_left": {
+        "cls": {
+          "mean": 0.36870249127313554,
+          "median": 0.35387961325454104
+        },
+        "count": 75,
+        "expert_crop_fraction": {
+          "mean": 0.651467320052996,
+          "median": 0.6389101462401581
+        },
+        "length_score": {
+          "mean": 0.5588646452142122,
+          "median": 0.5781469940492594
+        },
+        "ndtw": {
+          "mean": 0.46758989947131613,
+          "median": 0.5288680960365224
+        },
+        "path_coverage": {
+          "mean": 0.6358748647305194,
+          "median": 0.6547584228169938
+        },
+        "rollout_length_m": {
+          "mean": 5.619440745729339,
+          "median": 5.200264673637368
+        },
+        "status_counts": {
+          "collision": 14,
+          "success": 61
+        }
+      },
+      "around_right": {
+        "cls": {
+          "mean": 0.4147434770914729,
+          "median": 0.4139197290483374
+        },
+        "count": 75,
+        "expert_crop_fraction": {
+          "mean": 0.6607246409826065,
+          "median": 0.6520391768250646
+        },
+        "length_score": {
+          "mean": 0.6222460713840318,
+          "median": 0.6296152727099504
+        },
+        "ndtw": {
+          "mean": 0.5713575529167784,
+          "median": 0.5737872006608634
+        },
+        "path_coverage": {
+          "mean": 0.6478537425170449,
+          "median": 0.6600574644917928
+        },
+        "rollout_length_m": {
+          "mean": 5.012590326884829,
+          "median": 5.000361246181588
+        },
+        "status_counts": {
+          "collision": 2,
+          "success": 73
+        }
+      },
+      "over": {
+        "cls": {
+          "mean": 0.23062542833372446,
+          "median": 0.23514205520690223
+        },
+        "count": 44,
+        "expert_crop_fraction": {
+          "mean": 0.6321109594679611,
+          "median": 0.6876675095235985
+        },
+        "length_score": {
+          "mean": 0.48522323016969066,
+          "median": 0.5091887045887176
+        },
+        "ndtw": {
+          "mean": 0.3837667544662533,
+          "median": 0.40717187306893
+        },
+        "path_coverage": {
+          "mean": 0.4503763303080225,
+          "median": 0.4653257873267016
+        },
+        "rollout_length_m": {
+          "mean": 4.142154364880555,
+          "median": 3.922225099543683
+        },
+        "status_counts": {
+          "collision": 18,
+          "success": 25,
+          "timeout": 1
+        }
+      },
+      "through": {
+        "cls": {
+          "mean": 0.7448669997503998,
+          "median": 0.7541691518913287
+        },
+        "count": 50,
+        "expert_crop_fraction": {
+          "mean": 0.6187960912112019,
+          "median": 0.6218471056774
+        },
+        "length_score": {
+          "mean": 0.8600656360665891,
+          "median": 0.8662963118637828
+        },
+        "ndtw": {
+          "mean": 0.8480272610280205,
+          "median": 0.8535902017619064
+        },
+        "path_coverage": {
+          "mean": 0.862460023682742,
+          "median": 0.8705617206272795
+        },
+        "rollout_length_m": {
+          "mean": 4.132499409450726,
+          "median": 4.153385839138823
+        },
+        "status_counts": {
+          "collision": 2,
+          "success": 48
+        }
+      },
+      "under": {
+        "cls": {
+          "mean": 0.634723216692056,
+          "median": 0.658994267404429
+        },
+        "count": 10,
+        "expert_crop_fraction": {
+          "mean": 0.7475813133486173,
+          "median": 0.7555557725517821
+        },
+        "length_score": {
+          "mean": 0.7887455984773315,
+          "median": 0.8092991548422632
+        },
+        "ndtw": {
+          "mean": 0.7624613703269493,
+          "median": 0.7927266833422353
+        },
+        "path_coverage": {
+          "mean": 0.7935166354821317,
+          "median": 0.8135522351183504
+        },
+        "rollout_length_m": {
+          "mean": 4.812208450904356,
+          "median": 4.752448895204137
+        },
+        "status_counts": {
+          "success": 10
+        }
+      }
+    }
+  },
+  "record_count": 254,
+  "schema_version": 1
+}

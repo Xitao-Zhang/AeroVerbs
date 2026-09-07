@@ -1,0 +1,71 @@
+{
+  "aerialclaw_root": "/home/zxt/AerialClaw",
+  "batch_id": 1,
+  "complete": true,
+  "expected_samples": 51,
+  "missing_samples": 0,
+  "model": "aerialclaw",
+  "per_skill": {
+    "around_left": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "timeout": 15
+      },
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "around_right": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "timeout": 15
+      },
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "over": {
+      "expected": 9,
+      "missing": 0,
+      "processed": 9,
+      "status_counts": {
+        "timeout": 9
+      },
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "through": {
+      "expected": 10,
+      "missing": 0,
+      "processed": 10,
+      "status_counts": {
+        "success": 2,
+        "timeout": 8
+      },
+      "success": 2,
+      "success_rate": 0.2
+    },
+    "under": {
+      "expected": 2,
+      "missing": 0,
+      "processed": 2,
+      "status_counts": {
+        "timeout": 2
+      },
+      "success": 0,
+      "success_rate": 0.0
+    }
+  },
+  "processed_samples": 51,
+  "rollout_elapsed_s": 4319.5689999999995,
+  "status_counts": {
+    "success": 2,
+    "timeout": 49
+  },
+  "success_count": 2,
+  "success_rate": 0.0392156862745098,
+  "success_rate_processed": 0.0392156862745098,
+  "updated_at": "2026-09-04T13:08:19+0800"
+}

@@ -1,0 +1,24 @@
+{
+  "batch_id": 4,
+  "checkpoint": "/home/zxt/UAV_Basic_Skills/AeroVerbs/final.pt",
+  "checkpoint_sha256": "cb224919ccbbd89d5a0bcfd24ba4e1acde71b53166fb38edb43052875e585e77",
+  "created_at": "2026-09-05T10:36:56+0800",
+  "data_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/minimind-o_distillation/outputs/rollout_inputs/all-data-fp32-v2-dagger-5batch",
+  "expected_samples": 51,
+  "host": "zxt-4090-laptop",
+  "manifest": "/home/zxt/UAV_Basic_Skills/AeroVerbs/eval_manifests/batch_4.json",
+  "manifest_sha256": "67167b20e3efa94ed4ffc37aac8d6fe42c0f84a2bfa929b2293a2acd50e50ece",
+  "model": "bc_dagger",
+  "rollout": {
+    "collision_check": true,
+    "drone_radius": 0.15,
+    "gate_correction_blend": 0.25,
+    "gate_correction_start_m": 1.2,
+    "max_steps": 200,
+    "render": false,
+    "step_size": 0.1,
+    "turn_rate": 0.45,
+    "waypoint_index": 2
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,47 @@
+{
+  "total": 2525,
+  "dev_train": 1957,
+  "dev_val": 568,
+  "skill_counts": {
+    "around_left": 750,
+    "around_right": 750,
+    "over": 425,
+    "through": 500,
+    "under": 100
+  },
+  "target_counts": {
+    "basket": 18,
+    "bike": 200,
+    "bin": 150,
+    "box": 100,
+    "cabinet": 100,
+    "chair": 103,
+    "column": 300,
+    "door_opening": 200,
+    "indoor_plant": 200,
+    "lamp": 200,
+    "pillar": 300,
+    "refrigerator": 146,
+    "ring": 100,
+    "stool": 8,
+    "table": 100,
+    "umbrella": 100,
+    "window_opening": 200
+  },
+  "train_skill_counts": {
+    "around_left": 650,
+    "around_right": 600,
+    "over": 357,
+    "through": 300,
+    "under": 50
+  },
+  "val_skill_counts": {
+    "around_left": 100,
+    "around_right": 150,
+    "over": 68,
+    "through": 200,
+    "under": 50
+  },
+  "invalid": 4,
+  "invalid_report": "/home/zxt/UAV_Basic_Skills/AeroVerbs/minimind-o_distillation/data/reports/invalid_samples.jsonl"
+}

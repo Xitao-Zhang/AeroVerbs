@@ -44,10 +44,10 @@ from aeroverbs.data.gate_features import (
     waypoints_cross_gate,
     gate_features_for_pose,
 )
-from aeroverbs.data.transforms import load_heatmap_npy, preprocess_radar
+from aeroverbs.data.transforms import preprocess_radar
 from aeroverbs.env.radar import load_scene_mesh, render_scene_glb, sample_lidar_raycast
 from aeroverbs.training.trainer import make_model
-from build_heatmap_gate import build_gate_for_sample_dir
+from build_gate import build_gate_for_sample_dir
 from compute_downward_range import compute_downward_ranges
 
 # Imported lazily so rollout works even when matplotlib is missing (renders are
@@ -80,6 +80,9 @@ def parse_args():
     ap.add_argument("--render-voxel-size", type=float, default=0.2, help="Voxel size for trajectory render.")
     ap.add_argument("--render-voxel-stride", type=int, default=2, help="Render every Nth occupied voxel.")
     ap.add_argument("--render-region-stride", type=int, default=2, help="Render every Nth region point.")
+    ap.add_argument("--render-region", action="store_true", help="Include the semantic free-flight region in trajectory renders.")
+    ap.add_argument("--render-gate", action="store_true", help="Include the 3D gate in trajectory renders.")
+    ap.add_argument("--render-ground", action="store_true", help="Include ground voxels in trajectory renders.")
     ap.add_argument("--no-render", action="store_true", help="Skip trajectory PNG rendering.")
     ap.add_argument("--seed", type=int, default=0, help="Unused (policy is deterministic); kept for future noise injection.")
     return ap.parse_args()
@@ -112,7 +115,7 @@ def _load_or_build_gate(sample_dir: str, cfg: Config) -> GateGeometry:
     if not os.path.exists(summary_path):
         gate = build_gate_for_sample_dir(Path(sample_dir), output_root=None)
         if gate is None:
-            raise FileNotFoundError(f"missing and failed to build heatmap gate: {summary_path}")
+            raise FileNotFoundError(f"missing and failed to build semantic gate: {summary_path}")
     with open(summary_path, "r", encoding="utf-8") as f:
         return GateGeometry.from_summary(json.load(f))
 
@@ -399,24 +402,27 @@ def _render_trajectory(
         return None
 
     region = None
-    region_path = os.path.join(sample_dir, f"semantic_region_{skill}.json")
-    if os.path.exists(region_path):
-        try:
-            region = SemanticFreeRegion.load(Path(region_path))
-        except Exception:
-            region = None
+    if getattr(args, "render_region", False):
+        region_path = os.path.join(sample_dir, f"semantic_region_{skill}.json")
+        if os.path.exists(region_path):
+            try:
+                region = SemanticFreeRegion.load(Path(region_path))
+            except Exception:
+                region = None
 
     gate = None
-    gate_path = os.path.join(sample_dir, "heatmap_gate_summary.json")
-    if os.path.exists(gate_path):
-        try:
-            gate = HeatmapGate.load(Path(gate_path))
-        except Exception:
-            gate = None
+    if getattr(args, "render_gate", False):
+        gate_path = os.path.join(sample_dir, "heatmap_gate_summary.json")
+        if os.path.exists(gate_path):
+            try:
+                gate = HeatmapGate.load(Path(gate_path))
+            except Exception:
+                gate = None
 
     try:
         occupancy = voxel_occupancy_from_mesh(radar_mesh, voxel_size=args.render_voxel_size)
-        occupancy = _drop_ground_voxels(occupancy)
+        if not getattr(args, "render_ground", False):
+            occupancy = _drop_ground_voxels(occupancy)
         fig = make_figure(
             plan={"points": [list(map(float, p)) for p in points], "semantic_label": skill},
             occupancy=occupancy,
@@ -459,13 +465,10 @@ def _run_one_sample(sample_dir: str, model, cfg: Config, device: torch.device, a
     )
     gate = _load_or_build_gate(sample_dir, cfg)
 
-    # One-shot inputs.
-    heatmap = load_heatmap_npy(
-        os.path.join(sample_dir, "intention_heatmap.npy"),
-        size=tuple(cfg.data.heatmap_size),
-    ).unsqueeze(0).to(device)  # [1, 1, H, W]
+    # One-shot skill input.  The released policy uses gate geometry rather than
+    # the legacy heatmap latent, so no intention_heatmap.npy is required.
     skill_id = torch.tensor([SKILL_TO_ID[skill]], dtype=torch.long, device=device)
-    z_intent, z_skill, hidden = model.initialize(heatmap, skill_id)
+    z_intent, z_skill, hidden = model.initialize(None, skill_id)
 
     frames = json.load(open(os.path.join(sample_dir, "frames.json"), encoding="utf-8"))
     if frames:

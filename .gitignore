@@ -1,4 +1,4 @@
-# Python
+# Python caches and build products
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -6,8 +6,10 @@ __pycache__/
 build/
 dist/
 .pytest_cache/
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
 
-# Local environments and secrets
+# Local environments, credentials, and machine state
 .env
 .env.*
 !.env.example
@@ -15,37 +17,67 @@ dist/
 venv/
 *.pem
 *.key
-
-# Training checkpoints and generated outputs
-outputs/
-runs/
-*.pt
-*.pth
-*.ckpt
-*.log
-tensorboard.txt
-
-# Local datasets and machine-specific symlinks
-/data/
-
-# Local development notes and temporary regression tests
-/tests/
-/docs/
-/PROJECT_STATUS.md
-
-# Rollout artifacts; keep only compact aggregate summaries
-exp/*
-!exp/five_batch_summary.md
-!exp/five_batch_summary.json
-
-# Runtime state
-eval_reference_paths/progress.json
 .dsh-vision-router/
 .worktrees/
-
-# Editors / notebooks / OS
-.ipynb_checkpoints/
-**/.ipynb_checkpoints/
 .vscode/
 .idea/
 .DS_Store
+
+# Tests are development-only for this release
+/tests/
+/minimind-o_distillation/tests/
+
+# Large trajectory dataset (published separately on Hugging Face)
+/data/
+
+# Root scratch outputs and generic training artifacts
+/outputs/
+/runs/
+/generated_scenes/
+*.log
+*.pth
+*.ckpt
+tensorboard.txt
+
+# Ignore checkpoints by default; publish only the two method weights below
+*.pt
+!/final.pt
+
+# MiniMind-O generated/intermediate data
+/minimind-o_distillation/data/parquet/
+/minimind-o_distillation/tmp/
+/minimind-o_distillation/outputs/**
+
+# Keep only the formal MiniMind-O distilled checkpoint
+!/minimind-o_distillation/outputs/checkpoints/
+!/minimind-o_distillation/outputs/checkpoints/final/
+!/minimind-o_distillation/outputs/checkpoints/final/all-data-fp32-v2/
+!/minimind-o_distillation/outputs/checkpoints/final/all-data-fp32-v2/best.pt
+
+# OpenVLA fine-tuned weights are published separately on Hugging Face
+/openvla_weights/
+/weights/openvla/
+*.safetensors
+
+# Keep formal experiment metrics, configs, summaries, and annotations under
+# exp/. Publish bulky rollout trajectories separately on Hugging Face and do
+# not publish rendered frame/image directories in the Git repository.
+/exp/**/trajectories/
+/exp/**/renders/
+
+# Exclude the superseded 20-sample study entirely
+/exp/qwen_sample20_data/
+/exp/rollouts/qwen_sample20/
+/exp/visualizations/qwen_sample20_annotations/
+/exp/visualizations/sample20/
+
+# Runtime-only progress files
+/eval_reference_paths/progress.json
+
+# Keep user-facing docs; omit internal implementation plans
+/docs/superpowers/
+
+# Local development status and environment snapshots
+/PROJECT_STATUS.md
+/local-aeroverbs-freeze.txt
+/remote-aeroverbs-freeze.txt

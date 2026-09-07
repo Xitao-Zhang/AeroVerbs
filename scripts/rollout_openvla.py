@@ -36,6 +36,7 @@ from aeroverbs.env.rgb_renderer import HabitatRGBRenderer, load_sample_frame
 
 
 DEFAULT_DATA_ROOT = PROJECT_ROOT / "data" / "trajctorys"
+EXECUTION_MODE = "native_next_pose"
 INSTRUCTION_TEMPLATES = {
     "around_left": "Fly around the object on its left side.",
     "around_right": "Fly around the object on its right side.",
@@ -215,6 +216,23 @@ def _path_length(points: Sequence[np.ndarray]) -> float:
     return float(np.linalg.norm(np.diff(array, axis=0), axis=1).sum())
 
 
+def _print_step_progress(
+    *,
+    enabled: bool,
+    step: int,
+    max_steps: int,
+    latency_s: float,
+    target_distance_m: float,
+) -> None:
+    if not enabled:
+        return
+    print(
+        f"  [step {step}/{max_steps}] latency={latency_s:.3f}s "
+        f"target_distance={target_distance_m:.3f}m",
+        flush=True,
+    )
+
+
 def run_one_sample(sample_dir: Path, args: argparse.Namespace) -> dict:
     runtime = _runtime_components()
     sample_dir = Path(sample_dir)
@@ -280,6 +298,13 @@ def run_one_sample(sample_dir: Path, args: argparse.Namespace) -> dict:
                     "request_latency_s": prediction.request_latency_s,
                 }
             )
+            _print_step_progress(
+                enabled=getattr(args, "show_step_progress", False),
+                step=step + 1,
+                max_steps=args.max_steps,
+                latency_s=prediction.request_latency_s,
+                target_distance_m=target_distance,
+            )
             if target_distance < args.minimum_target_distance_m:
                 reason = (
                     f"OpenVLA target displacement {target_distance:.6f}m is below "
@@ -287,13 +312,13 @@ def run_one_sample(sample_dir: Path, args: argparse.Namespace) -> dict:
                 )
                 break
 
-            next_position, next_forward = kinematic_step_toward(
-                position,
-                forward,
-                target_position,
-                step_size=args.step_size,
-                turn_rate=args.turn_rate,
-            )
+            # OpenVLA-UAV predicts the absolute next pose in its first-frame
+            # local coordinate system. Execute that pose directly, matching
+            # the released UAV-Flow evaluator: the predicted translation and
+            # yaw must both determine the observation rendered at the next
+            # inference step.
+            next_position = target_position
+            next_forward = predicted_forward
             if not args.no_collision_check and collision_checker.collides(next_position):
                 collision_point = next_position.copy()
                 points.append(collision_point)
@@ -349,6 +374,9 @@ def run_one_sample(sample_dir: Path, args: argparse.Namespace) -> dict:
             render_voxel_size=args.render_voxel_size,
             render_voxel_stride=args.render_voxel_stride,
             render_region_stride=args.render_region_stride,
+            render_region=getattr(args, "render_region", False),
+            render_gate=getattr(args, "render_gate", False),
+            render_ground=getattr(args, "render_ground", False),
         )
         rendered_path = runtime.render_trajectory(
             str(sample_dir), points, skill, str(render_path), radar_mesh, render_args
@@ -359,6 +387,7 @@ def run_one_sample(sample_dir: Path, args: argparse.Namespace) -> dict:
     latencies = [record["request_latency_s"] for record in inference_records]
     return {
         "model": "openvla",
+        "execution_mode": EXECUTION_MODE,
         "skill": skill,
         "scene_id": sample_dir.name,
         "instruction": instruction,
@@ -405,11 +434,19 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--rgb-width", type=int, default=640)
     parser.add_argument("--rgb-height", type=int, default=480)
     parser.add_argument("--rgb-gpu-device-id", type=int, default=-1)
+    parser.add_argument(
+        "--show-step-progress",
+        action="store_true",
+        help="Print one progress line after each completed OpenVLA inference step.",
+    )
     parser.add_argument("--no-collision-check", action="store_true")
     parser.add_argument("--render-trajectory", action="store_true")
     parser.add_argument("--render-voxel-size", type=float, default=0.2)
     parser.add_argument("--render-voxel-stride", type=int, default=2)
     parser.add_argument("--render-region-stride", type=int, default=2)
+    parser.add_argument("--render-region", action="store_true")
+    parser.add_argument("--render-gate", action="store_true")
+    parser.add_argument("--render-ground", action="store_true")
     args = parser.parse_args(argv)
     if args.max_steps <= 0:
         parser.error("--max-steps must be positive")
@@ -441,6 +478,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     run_config.update(
         {
             "model": "openvla",
+            "execution_mode": EXECUTION_MODE,
             "sample_dir": str(sample_dir),
             "started_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         }

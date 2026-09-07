@@ -1,0 +1,24 @@
+{
+  "batch_id": 5,
+  "checkpoint": "/root/autodl-tmp/outputs/bc_baseline/20260826-074509/final.pt",
+  "checkpoint_sha256": "7abaaab1a6b0bc8e3ab45dd983d326fa8473db1ba468d1d2d5005fb514f7f037",
+  "created_at": "2026-08-27T12:09:52+0800",
+  "data_root": "/root/autodl-tmp/data/trajctorys",
+  "expected_samples": 50,
+  "host": "autodl-container-5f5c489a58-d2c13741",
+  "manifest": "/root/AeroVerbs/eval_manifests/batch_5.json",
+  "manifest_sha256": "2ce2ae7dbb51359a9c6ee561e840739ba3d29d186fcbe85c889ddf2039a04dce",
+  "model": "bc",
+  "rollout": {
+    "collision_check": true,
+    "drone_radius": 0.15,
+    "gate_correction_blend": 0.25,
+    "gate_correction_start_m": 1.2,
+    "max_steps": 200,
+    "render": false,
+    "step_size": 0.1,
+    "turn_rate": 0.45,
+    "waypoint_index": 2
+  },
+  "schema_version": 1
+}

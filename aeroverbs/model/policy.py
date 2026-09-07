@@ -1,12 +1,13 @@
 """The full AeroVerbs policy network.
 
-Top-level interface follows `maneuver_policy_network_v1.md` §11::
+Current gate-based interface::
 
-    z_intent, z_skill, hidden = model.initialize(maneuver_heatmap, skill_id)
+    z_intent, z_skill, hidden = model.initialize(None, skill_id)
     waypoints, completion, hidden = model.step(radar, z_intent, z_skill, hidden)
 
 `forward` is the batched training convenience: it initializes once from the
-one-shot heatmap / skill and unrolls the GRU over a radar sequence.
+skill and unrolls the GRU over a radar sequence. ``IntentEncoder`` and the
+optional heatmap argument remain only for loading historical checkpoints.
 """
 
 from __future__ import annotations
@@ -147,12 +148,13 @@ class AeroVerbsPolicy(nn.Module):
         self.progress_head = ProgressHead(hidden=hidden)
 
     def initialize(
-        self, heatmap: torch.Tensor, skill_id: torch.Tensor
+        self, heatmap: torch.Tensor | None, skill_id: torch.Tensor
     ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Encode one-shot inputs and produce the initial GRU hidden state.
 
         Args:
-            heatmap: ``[B, 1, H, W]`` maneuver intention heatmap.
+            heatmap: optional ``[B, 1, H, W]`` legacy intention heatmap.
+                It may be ``None`` when ``use_heatmap_latent`` is false.
             skill_id: ``[B]`` long tensor.
 
         Returns:
@@ -160,10 +162,12 @@ class AeroVerbsPolicy(nn.Module):
         """
         z_skill = self.skill_encoder(skill_id)
         if self.use_heatmap_latent:
+            if heatmap is None:
+                raise ValueError("heatmap is required when use_heatmap_latent=True")
             z_intent = self.intent_encoder(heatmap)
             init = torch.cat([z_intent, z_skill], dim=-1)
         else:
-            z_intent = heatmap.new_zeros((heatmap.shape[0], 0))
+            z_intent = z_skill.new_zeros((z_skill.shape[0], 0))
             init = z_skill
         h0 = self.gru_init(init)
         hidden = h0.unsqueeze(0)  # [num_layers=1, B, H]
@@ -214,7 +218,7 @@ class AeroVerbsPolicy(nn.Module):
 
     def forward(
         self,
-        heatmap: torch.Tensor,
+        heatmap: torch.Tensor | None,
         skill_id: torch.Tensor,
         radar_seq: torch.Tensor,
         action_history_seq: torch.Tensor,
@@ -225,7 +229,8 @@ class AeroVerbsPolicy(nn.Module):
         """Batched training forward over a radar sequence.
 
         Args:
-            heatmap: ``[B, 1, H, W]``.
+            heatmap: optional legacy input. Current gate-based models pass
+                ``None`` because ``use_heatmap_latent`` is false.
             skill_id: ``[B]``.
             radar_seq: ``[B, T, 3, H, W]``.
             action_history_seq: ``[B, T, H, 4]``.
@@ -262,7 +267,7 @@ class AeroVerbsPolicy(nn.Module):
     @torch.no_grad()
     def roll(
         self,
-        heatmap: torch.Tensor,
+        heatmap: torch.Tensor | None,
         skill_id: torch.Tensor,
         radar_seq: torch.Tensor,
         action_history_seq: torch.Tensor,

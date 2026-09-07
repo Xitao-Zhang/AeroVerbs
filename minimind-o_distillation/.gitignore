@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+
+# Rebuildable dataset serialization; manifests and audit reports remain public.
+data/parquet/
+
+# Keep only the formal distilled checkpoint from generated outputs.
+outputs/**
+!outputs/checkpoints/
+!outputs/checkpoints/final/
+!outputs/checkpoints/final/all-data-fp32-v2/
+!outputs/checkpoints/final/all-data-fp32-v2/best.pt
+
+tmp/

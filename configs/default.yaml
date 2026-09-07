@@ -19,7 +19,6 @@ model:
 data:
   data_root: data/trajctorys
   skills: [around_left, around_right, through, over, under]
-  heatmap_size: [120, 160]
   radar_size: [40, 500]
   r_max: 10.0
   fov_deg: [-5.0, 35.0]

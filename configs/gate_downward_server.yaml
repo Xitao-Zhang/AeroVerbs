@@ -20,9 +20,6 @@ data:
   - through
   - over
   - under
-  heatmap_size:
-  - 120
-  - 160
   radar_size:
   - 40
   - 500

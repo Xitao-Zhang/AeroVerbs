@@ -1,0 +1,74 @@
+{
+  "batch_id": 2,
+  "checkpoint": "/root/AeroVerbs/outputs/dagger_next_v2/round2/20260826-205424/final.pt",
+  "checkpoint_sha256": "cb224919ccbbd89d5a0bcfd24ba4e1acde71b53166fb38edb43052875e585e77",
+  "complete": true,
+  "expected_samples": 51,
+  "missing_samples": 0,
+  "model": "dagger",
+  "per_skill": {
+    "around_left": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "collision": 3,
+        "success": 12
+      },
+      "success": 12,
+      "success_rate": 0.8
+    },
+    "around_right": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "success": 15
+      },
+      "success": 15,
+      "success_rate": 1.0
+    },
+    "over": {
+      "expected": 9,
+      "missing": 0,
+      "processed": 9,
+      "status_counts": {
+        "collision": 2,
+        "success": 7
+      },
+      "success": 7,
+      "success_rate": 0.7777777777777778
+    },
+    "through": {
+      "expected": 10,
+      "missing": 0,
+      "processed": 10,
+      "status_counts": {
+        "collision": 1,
+        "success": 9
+      },
+      "success": 9,
+      "success_rate": 0.9
+    },
+    "under": {
+      "expected": 2,
+      "missing": 0,
+      "processed": 2,
+      "status_counts": {
+        "success": 2
+      },
+      "success": 2,
+      "success_rate": 1.0
+    }
+  },
+  "processed_samples": 51,
+  "rollout_elapsed_s": 144.31000000000006,
+  "status_counts": {
+    "collision": 6,
+    "success": 45
+  },
+  "success_count": 45,
+  "success_rate": 0.8823529411764706,
+  "success_rate_processed": 0.8823529411764706,
+  "updated_at": "2026-08-27T11:58:09+0800"
+}

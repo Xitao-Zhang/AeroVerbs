@@ -1,0 +1,13 @@
+{
+  "batch_id": 5,
+  "count": 50,
+  "ok": 50,
+  "errors": 0,
+  "skill_counts": {
+    "around_left": 15,
+    "around_right": 15,
+    "through": 10,
+    "over": 8,
+    "under": 2
+  }
+}

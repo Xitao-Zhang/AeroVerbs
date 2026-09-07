@@ -4,20 +4,16 @@ from .labels import (
     compute_waypoint_labels,
     compute_completion_labels,
 )
-from .heatmap import bbox_to_heatmap
-
 __all__ = [
     "ManeuverDataset",
     "TrajectoryDataset",
     "build_sample_index",
     "split_samples",
     "preprocess_radar",
-    "resize_heatmap",
     "skill_to_id",
     "body_frame_basis",
     "compute_waypoint_labels",
     "compute_completion_labels",
-    "bbox_to_heatmap",
 ]
 
 
@@ -26,7 +22,7 @@ def __getattr__(name):
         from . import dataset
 
         return getattr(dataset, name)
-    if name in {"preprocess_radar", "resize_heatmap"}:
+    if name == "preprocess_radar":
         from . import transforms
 
         return getattr(transforms, name)

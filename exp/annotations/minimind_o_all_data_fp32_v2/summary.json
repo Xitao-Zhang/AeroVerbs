@@ -1,0 +1,95 @@
+{
+  "source_rollout_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/exp/rollouts/dagger",
+  "source_data_root": "/data/UAV_Basic_Skills/trajctorys",
+  "checkpoint": "/home/zxt/UAV_Basic_Skills/AeroVerbs/minimind-o_distillation/outputs/checkpoints/final/all-data-fp32-v2/best.pt",
+  "checkpoint_epoch": 8,
+  "device": "cuda",
+  "dtype": "float32",
+  "total": 254,
+  "unique_samples": 254,
+  "ok": 254,
+  "errors": 0,
+  "skill_counts": {
+    "around_left": 75,
+    "around_right": 75,
+    "through": 50,
+    "over": 44,
+    "under": 10
+  },
+  "teacher_mean_iou_by_skill": {
+    "around_left": 0.8180260997503791,
+    "around_right": 0.8206333297873907,
+    "through": 0.7846995754732918,
+    "over": 0.6926130405786913,
+    "under": 0.9950067476383266
+  },
+  "batches": [
+    {
+      "batch_id": 1,
+      "count": 51,
+      "ok": 51,
+      "errors": 0,
+      "skill_counts": {
+        "around_left": 15,
+        "around_right": 15,
+        "through": 10,
+        "over": 9,
+        "under": 2
+      }
+    },
+    {
+      "batch_id": 2,
+      "count": 51,
+      "ok": 51,
+      "errors": 0,
+      "skill_counts": {
+        "around_left": 15,
+        "around_right": 15,
+        "through": 10,
+        "over": 9,
+        "under": 2
+      }
+    },
+    {
+      "batch_id": 3,
+      "count": 51,
+      "ok": 51,
+      "errors": 0,
+      "skill_counts": {
+        "around_left": 15,
+        "around_right": 15,
+        "through": 10,
+        "over": 9,
+        "under": 2
+      }
+    },
+    {
+      "batch_id": 4,
+      "count": 51,
+      "ok": 51,
+      "errors": 0,
+      "skill_counts": {
+        "around_left": 15,
+        "around_right": 15,
+        "through": 10,
+        "over": 9,
+        "under": 2
+      }
+    },
+    {
+      "batch_id": 5,
+      "count": 50,
+      "ok": 50,
+      "errors": 0,
+      "skill_counts": {
+        "around_left": 15,
+        "around_right": 15,
+        "through": 10,
+        "over": 8,
+        "under": 2
+      }
+    }
+  ],
+  "elapsed_sec": 39.07598948478699,
+  "original_files_modified": false
+}

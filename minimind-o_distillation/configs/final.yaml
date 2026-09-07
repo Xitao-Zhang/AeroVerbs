@@ -1,0 +1,48 @@
+paths:
+  data_root: /data/UAV_Basic_Skills/trajctorys
+  annotation_script: /home/zxt/UAV_Basic_Skills/scripts/annotate_table_passage.py
+  minimind_root: /home/zxt/minimind-o
+  tokenizer: /home/zxt/minimind-o/model
+  vision_encoder: /home/zxt/minimind-o/model/siglip2-base-p32-256-ve
+  initial_weight: /home/zxt/minimind-o/out/sft_omni_768.pth
+  manifest: data/manifests/all.jsonl
+  val_manifest: null
+
+data:
+  image_name: initial_rgb.png
+  image_width: 640
+  image_height: 480
+  image_token_len: 64
+  max_seq_len: 1024
+  oversample_weights:
+    around_left: 1.0
+    around_right: 1.0
+    through: 2.0
+    over: 2.0
+    under: 10.0
+
+model:
+  hidden_size: 768
+  num_hidden_layers: 8
+  use_moe: false
+  thinker_trainable_layers: 2
+  train_vision_projector: true
+  train_thinker_norm: true
+  train_lm_head: true
+
+training:
+  seed: 42
+  device: cuda
+  dtype: float32
+  epochs: 8
+  batch_size: 4
+  accumulation_steps: 8
+  learning_rate: 5.0e-5
+  weight_decay: 0.01
+  grad_clip: 1.0
+  num_workers: 4
+  log_interval: 10
+  generation_eval_per_skill: 10
+  max_new_tokens: 96
+  output_dir: outputs/checkpoints/final
+  log_dir: outputs/logs/final

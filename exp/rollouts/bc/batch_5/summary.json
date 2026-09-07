@@ -1,0 +1,76 @@
+{
+  "batch_id": 5,
+  "checkpoint": "/root/autodl-tmp/outputs/bc_baseline/20260826-074509/final.pt",
+  "checkpoint_sha256": "7abaaab1a6b0bc8e3ab45dd983d326fa8473db1ba468d1d2d5005fb514f7f037",
+  "complete": true,
+  "expected_samples": 50,
+  "missing_samples": 0,
+  "model": "bc",
+  "per_skill": {
+    "around_left": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "success": 13,
+        "timeout": 2
+      },
+      "success": 13,
+      "success_rate": 0.8666666666666667
+    },
+    "around_right": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "collision": 5,
+        "success": 8,
+        "timeout": 2
+      },
+      "success": 8,
+      "success_rate": 0.5333333333333333
+    },
+    "over": {
+      "expected": 8,
+      "missing": 0,
+      "processed": 8,
+      "status_counts": {
+        "collision": 3,
+        "success": 5
+      },
+      "success": 5,
+      "success_rate": 0.625
+    },
+    "through": {
+      "expected": 10,
+      "missing": 0,
+      "processed": 10,
+      "status_counts": {
+        "success": 10
+      },
+      "success": 10,
+      "success_rate": 1.0
+    },
+    "under": {
+      "expected": 2,
+      "missing": 0,
+      "processed": 2,
+      "status_counts": {
+        "success": 2
+      },
+      "success": 2,
+      "success_rate": 1.0
+    }
+  },
+  "processed_samples": 50,
+  "rollout_elapsed_s": 167.39499999999995,
+  "status_counts": {
+    "collision": 8,
+    "success": 38,
+    "timeout": 4
+  },
+  "success_count": 38,
+  "success_rate": 0.76,
+  "success_rate_processed": 0.76,
+  "updated_at": "2026-08-27T12:12:50+0800"
+}

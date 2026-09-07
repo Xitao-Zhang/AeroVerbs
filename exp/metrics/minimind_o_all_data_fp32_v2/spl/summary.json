@@ -1,0 +1,93 @@
+{
+  "configuration": {
+    "exp_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/exp/rollouts_minimind_o_all_data_fp32_v2",
+    "models": [
+      "dagger"
+    ],
+    "reference_path_source": "frozen Fast-Planner reference paths",
+    "reference_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/eval_reference_paths",
+    "spl_definition": "mean_i[S_i * L_i / max(P_i, L_i)]",
+    "success_definition": "status == success"
+  },
+  "overall": {
+    "dagger": {
+      "count": 254,
+      "missing_trajectory_count": 0,
+      "spl": 0.7933387877247062,
+      "status_counts": {
+        "collision": 36,
+        "success": 217,
+        "timeout": 1
+      },
+      "success_count": 217,
+      "success_rate": 0.8543307086614174,
+      "successful_path_efficiency_mean": 0.9286085349404395
+    }
+  },
+  "per_skill": {
+    "dagger": {
+      "around_left": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.6989711605642674,
+        "status_counts": {
+          "collision": 14,
+          "success": 61
+        },
+        "success_count": 61,
+        "success_rate": 0.8133333333333334,
+        "successful_path_efficiency_mean": 0.8593907711855748
+      },
+      "around_right": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.9069358422227306,
+        "status_counts": {
+          "collision": 2,
+          "success": 73
+        },
+        "success_count": 73,
+        "success_rate": 0.9733333333333334,
+        "successful_path_efficiency_mean": 0.9317833995439013
+      },
+      "over": {
+        "count": 44,
+        "missing_trajectory_count": 0,
+        "spl": 0.5637652939769363,
+        "status_counts": {
+          "collision": 18,
+          "success": 25,
+          "timeout": 1
+        },
+        "success_count": 25,
+        "success_rate": 0.5681818181818182,
+        "successful_path_efficiency_mean": 0.9922269173994078
+      },
+      "through": {
+        "count": 50,
+        "missing_trajectory_count": 0,
+        "spl": 0.9294874432167824,
+        "status_counts": {
+          "collision": 2,
+          "success": 48
+        },
+        "success_count": 48,
+        "success_rate": 0.96,
+        "successful_path_efficiency_mean": 0.9682160866841484
+      },
+      "under": {
+        "count": 10,
+        "missing_trajectory_count": 0,
+        "spl": 0.9784981777226189,
+        "status_counts": {
+          "success": 10
+        },
+        "success_count": 10,
+        "success_rate": 1.0,
+        "successful_path_efficiency_mean": 0.9784981777226189
+      }
+    }
+  },
+  "record_count": 254,
+  "schema_version": 1
+}

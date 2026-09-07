@@ -36,7 +36,6 @@ class DataConfig:
     skills: List[str] = field(
         default_factory=lambda: ["around_left", "around_right", "through", "over", "under"]
     )
-    heatmap_size: Tuple[int, int] = (120, 160)  # (H, W) fed to IntentEncoder
     radar_size: Tuple[int, int] = (40, 500)  # (rows, cols) of raw range image
     r_max: float = 10.0  # meters; range values at/above this are "no hit"
     fov_deg: Tuple[float, float] = (-5.0, 35.0)  # vertical pitch span

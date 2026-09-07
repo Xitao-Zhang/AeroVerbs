@@ -36,7 +36,7 @@ from aeroverbs.data.fast_planner_teacher import (
     FastPlannerTeacherConfig,
     FastPlannerTeacherLabeler,
 )
-from aeroverbs.data.transforms import load_heatmap_npy, preprocess_radar
+from aeroverbs.data.transforms import preprocess_radar
 from aeroverbs.env.radar import load_scene_mesh, render_scene_glb, sample_lidar_raycast
 from compute_downward_range import compute_downward_ranges
 
@@ -188,7 +188,7 @@ def _teacher_completion_is_terminal(completion: int) -> bool:
 def _save_sample(sample_dir: str, frames: List[dict], raw_ranges: List[np.ndarray],
                  downward_ranges: List[np.ndarray],
                  teacher_wp: List[np.ndarray], teacher_valid: List[np.ndarray],
-                 teacher_comp: List[np.ndarray], meta: dict, heatmap_src: str,
+                 teacher_comp: List[np.ndarray], meta: dict,
                  planner_stats: Optional[dict] = None,
                  teacher_sources: Optional[List[str]] = None,
                  teacher_weights: Optional[List[float]] = None) -> str:
@@ -199,7 +199,6 @@ def _save_sample(sample_dir: str, frames: List[dict], raw_ranges: List[np.ndarra
         json.dump(frames, f)
     with open(os.path.join(sample_dir, "meta.json"), "w", encoding="utf-8") as f:
         json.dump(meta, f)
-    shutil.copyfile(heatmap_src, os.path.join(sample_dir, "intention_heatmap.npy"))
     np.save(os.path.join(sample_dir, "downward_range.npy"), np.asarray(downward_ranges, dtype=np.float32))
     np.save(os.path.join(sample_dir, "teacher_waypoints.npy"), np.asarray(teacher_wp, dtype=np.float32))
     np.save(os.path.join(sample_dir, "teacher_waypoint_valid.npy"), np.asarray(teacher_valid, dtype=np.float32))
@@ -243,12 +242,8 @@ def _collect_one(sample_dir: str, model, cfg, device, args, skill_counter: dict)
         ),
     )
 
-    heatmap = load_heatmap_npy(
-        os.path.join(sample_dir, "intention_heatmap.npy"),
-        size=tuple(cfg.data.heatmap_size),
-    ).unsqueeze(0).to(device)
     skill_id = torch.tensor([SKILL_TO_ID[skill]], dtype=torch.long, device=device)
-    z_intent, z_skill, hidden = model.initialize(heatmap, skill_id)
+    z_intent, z_skill, hidden = model.initialize(None, skill_id)
 
     frames = json.load(open(os.path.join(sample_dir, "frames.json"), encoding="utf-8"))
     position = np.asarray(frames[0]["camera_position_std"], dtype=np.float32)
@@ -390,7 +385,7 @@ def _collect_one(sample_dir: str, model, cfg, device, args, skill_counter: dict)
     _save_sample(
         out_dir, out_frames, raw_ranges, downward_ranges,
         teacher_wp, teacher_valid, teacher_comp,
-        meta, os.path.join(sample_dir, "intention_heatmap.npy"),
+        meta,
         planner_stats=teacher.stats(),
         teacher_sources=teacher_sources,
         teacher_weights=teacher_weights,

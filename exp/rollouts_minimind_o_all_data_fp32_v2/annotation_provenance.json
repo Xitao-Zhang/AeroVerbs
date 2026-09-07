@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "purpose": "AeroVerbs rollout overlay using MiniMind-O passable-region annotations",
+  "annotations": "/home/zxt/UAV_Basic_Skills/AeroVerbs/minimind-o_distillation/outputs/rollout_annotations/all-data-fp32-v2-dagger-5batch/minimind_annotations.jsonl",
+  "annotations_sha256": "05959c2cc6a777bdd24f8e78f8aa20025b1a91e9d29c4f2f8dde860de4704f91",
+  "source_data_root": "/data/UAV_Basic_Skills/trajctorys",
+  "aeroverbs_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs",
+  "sample_count": 254,
+  "soft_width": 10.0,
+  "original_files_modified": false
+}

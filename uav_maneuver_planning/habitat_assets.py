@@ -93,10 +93,10 @@ def create_habitat_scene(
             "floor_color_rgba": [120, 230, 255, 255],
             "note": "Scene GLB contains placed semantic objects only; no ground plane is written into the GLB. Background is set by the renderer clear color.",
         },
-        "start_std": list(scene.start),
-        "goal_std": list(scene.goal),
-        "start_habitat": list(_std_to_habitat(scene.start)),
-        "goal_habitat": list(_std_to_habitat(scene.goal)),
+        "start_std": list(scene.start) if scene.start is not None else None,
+        "goal_std": list(scene.goal) if scene.goal is not None else None,
+        "start_habitat": list(_std_to_habitat(scene.start)) if scene.start is not None else None,
+        "goal_habitat": list(_std_to_habitat(scene.goal)) if scene.goal is not None else None,
         "objects": [
             {
                 "id": obj.object_id,
@@ -193,7 +193,13 @@ def _make_object_mesh(obj: SemanticObject, habitat_data_root: Path) -> trimesh.T
         asset_path = resolve_habitat_asset(obj.asset_path, habitat_data_root)
         return _transform_asset_mesh(_load_asset_mesh(asset_path), obj)
 
-    if obj.object_type in {"table", "cabinet", "chair", "sofa", "bed", "shelf"}:
+    if obj.object_type == "door" and obj.width and obj.height and obj.thickness:
+        return _make_door(obj)
+
+    if obj.object_type == "table" and obj.bbox_min is not None and obj.bbox_max is not None:
+        return _make_table(obj)
+
+    if obj.object_type in {"cabinet", "chair", "sofa", "bed", "shelf"}:
         raise ValueError(f"{obj.object_type} object {obj.object_id} must provide asset_path")
 
     if obj.object_type == "ring" and obj.inner_radius is not None and obj.thickness is not None:
@@ -294,6 +300,50 @@ def _make_box(extents, translation, color) -> trimesh.Trimesh:
     box.apply_translation(translation)
     _set_vertex_color(box, color)
     return box
+
+
+def _make_door(obj: SemanticObject) -> trimesh.Trimesh:
+    """Make a door frame in the x-z plane, leaving its centered x opening empty."""
+    import trimesh
+
+    width = float(obj.width)
+    height = float(obj.height)
+    thickness = float(obj.thickness)
+    center = np.asarray(obj.center, dtype=float)
+    post_width = thickness
+    side_height = height - post_width
+    pieces = [
+        _make_box((post_width, thickness, side_height),
+                  (center[0] - width / 2.0 - post_width / 2.0, center[1], side_height / 2.0),
+                  _object_color(obj)),
+        _make_box((post_width, thickness, side_height),
+                  (center[0] + width / 2.0 + post_width / 2.0, center[1], side_height / 2.0),
+                  _object_color(obj)),
+        _make_box((width + 2.0 * post_width, thickness, post_width),
+                  (center[0], center[1], height - post_width / 2.0),
+                  _object_color(obj)),
+    ]
+    return trimesh.util.concatenate(pieces)
+
+
+def _make_table(obj: SemanticObject) -> trimesh.Trimesh:
+    """Make a simple four-legged table from its axis-aligned bounding box."""
+    import trimesh
+
+    bmin = np.asarray(obj.bbox_min, dtype=float)
+    bmax = np.asarray(obj.bbox_max, dtype=float)
+    width, depth, height = bmax - bmin
+    top_thickness = min(0.12, height * 0.16)
+    leg_width = min(0.12, width * 0.12, depth * 0.12)
+    color = _object_color(obj)
+    pieces = [_make_box((width, depth, top_thickness),
+                        ((bmin[0] + bmax[0]) / 2.0, (bmin[1] + bmax[1]) / 2.0,
+                         bmax[2] - top_thickness / 2.0), color)]
+    for x in (bmin[0] + leg_width / 2.0, bmax[0] - leg_width / 2.0):
+        for y in (bmin[1] + leg_width / 2.0, bmax[1] - leg_width / 2.0):
+            pieces.append(_make_box((leg_width, leg_width, height - top_thickness),
+                                    (x, y, (height - top_thickness) / 2.0), color))
+    return trimesh.util.concatenate(pieces)
 
 
 def _make_render_ground() -> trimesh.Trimesh:

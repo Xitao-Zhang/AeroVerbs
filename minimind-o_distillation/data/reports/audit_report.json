@@ -1,0 +1,15 @@
+{
+  "manifest": "/home/zxt/UAV_Basic_Skills/AeroVerbs/minimind-o_distillation/data/manifests/all.jsonl",
+  "samples": 2525,
+  "errors": 0,
+  "skill_counts": {
+    "around_left": 750,
+    "around_right": 750,
+    "through": 500,
+    "over": 425,
+    "under": 100
+  },
+  "token_length_min": 358,
+  "token_length_max": 377,
+  "token_length_mean": 366.96158415841586
+}

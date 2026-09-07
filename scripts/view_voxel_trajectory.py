@@ -257,8 +257,22 @@ def parse_args():
     parser.add_argument("--voxel-stride", type=int, default=1, help="Render every Nth occupied voxel.")
     parser.add_argument("--region-stride", type=int, default=1, help="Render every Nth semantic region point.")
     parser.add_argument("--no-path", action="store_true", help="Do not draw the planned trajectory.")
-    parser.add_argument("--no-region", action="store_true", help="Do not draw the semantic free-flight region.")
-    parser.add_argument("--no-gate", action="store_true", help="Do not draw the heatmap gate.")
+    parser.add_argument(
+        "--show-region", action="store_true",
+        help="Auto-discover and draw the semantic free-flight region.",
+    )
+    parser.add_argument(
+        "--show-gate", action="store_true",
+        help="Auto-discover and draw the 3D gate.",
+    )
+    parser.add_argument(
+        "--show-ground", action="store_true",
+        help="Keep ground voxels; ground is hidden by default.",
+    )
+    # Retain the old negative flags so existing commands remain valid. The new
+    # default already hides both overlays.
+    parser.add_argument("--no-region", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--no-gate", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--completion", default=None,
                         help="Optional completion.npy (0/1 per trajectory frame); the completed "
                              "tail segment is drawn in a different color.")
@@ -287,12 +301,12 @@ def _resolve_auto_paths(args):
             args.plan = str(candidate)
         else:
             raise FileNotFoundError(f"planned trajectory not found: {candidate}")
-    if args.region is None:
+    if args.show_region and args.region is None:
         candidate = sample_dir / f"semantic_region_{args.task}.json"
         if candidate.exists():
             args.region = str(candidate)
         # Region is optional; render without it if missing.
-    if args.gate is None:
+    if args.show_gate and args.gate is None:
         candidate = sample_dir / "heatmap_gate_summary.json"
         if candidate.exists():
             args.gate = str(candidate)
@@ -362,11 +376,12 @@ def main():
 def _load_or_build_occupancy(args):
     if args.occupancy:
         occupancy = VoxelOccupancy.load(Path(args.occupancy))
-        return _drop_ground_voxels(occupancy)
+        return occupancy if getattr(args, "show_ground", False) else _drop_ground_voxels(occupancy)
     if not args.glb:
         return None
     occupancy = _occupancy_from_glb(Path(args.glb), voxel_size=args.voxel_size)
-    occupancy = _drop_ground_voxels(occupancy)
+    if not getattr(args, "show_ground", False):
+        occupancy = _drop_ground_voxels(occupancy)
     if args.save_occupancy:
         occupancy.save(
             Path(args.save_occupancy),

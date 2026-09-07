@@ -117,6 +117,49 @@ outputs/<experiment>/<run_name>/
 
 其中 `experiment` 用于区分消融类型（如 `bc_baseline`、`no_heatmap`、`object_embedding`），`run_name` 默认自动用时间戳，也可用 `--name` 指定。多次运行同一实验会落在同一 `outputs/<experiment>/` 下按 run 分隔。
 
+## AerialClaw 基线评测
+
+AeroVerbs 进程负责场景、传感器、0.1 m 物理子步、碰撞检测和 `CompletionJudge`；AerialClaw 通过本机 HTTP `SimAdapter` 闭环控制。AerialClaw 的文本 `done` 不能判成功，只有 `CompletionJudge` 可以产生 `status=success`。
+
+先在 `/home/zxt/AerialClaw/.env` 配置 LLM/VLM（项目的 `config.py` 会自动读取）：
+
+```dotenv
+ACTIVE_PROVIDER=openai
+LLM_BASE_URL=https://your-compatible-endpoint/v1
+LLM_API_KEY=...
+LLM_MODEL=your-model
+VLM_BASE_URL=https://your-compatible-endpoint/v1
+VLM_API_KEY=...
+VLM_MODEL=your-vision-model
+```
+
+使用包含 Habitat-Sim 的 `visfly` 环境启动批量评测；AerialClaw 子进程仍使用独立的 `aerialclaw-eval` 环境：
+
+```bash
+conda activate visfly
+cd /home/zxt/UAV_Basic_Skills/AeroVerbs
+
+python scripts/eval_rollout_batch.py \
+  --model aerialclaw \
+  --manifest eval_manifests/batch_1.json \
+  --data-root /你的数据根目录/trajctorys \
+  --output-root exp/rollouts \
+  --aerialclaw-root /home/zxt/AerialClaw \
+  --aerialclaw-python /home/zxt/miniconda3/envs/aerialclaw-eval/bin/python
+```
+
+轨迹保存在 `exp/rollouts/batch_1/aerialclaw/trajectories/`，其中 `points` 是 AeroVerbs z-up 世界坐标，另含 `aerialclaw_actions` 和 agent 动作审计。指标脚本会同时识别历史的 `model/batch_N` 和新运行产生的 `batch_N/model` 布局。相同指标可直接计算：
+
+```bash
+python scripts/compute_trajectory_metrics.py \
+  --exp-root exp --expert-root /你的数据根目录/trajctorys \
+  --models bc dagger openvla aerialclaw
+
+python scripts/compute_rear_region_metric.py \
+  --exp-root exp --data-root /你的数据根目录/trajctorys \
+  --models bc dagger openvla aerialclaw
+```
+
 ## 目录结构
 
 ```text
@@ -140,3 +183,26 @@ AeroVerbs/
 
 - 完成标签当前使用弧长进度启发式（轨迹末段），后续应替换为 privileged `TrajectorySemanticJudge` 的语义完成判定。
 - 训练目标为机体系相对路径点；路径点跟踪由后处理 / 控制器完成，不属于本网络的监督目标。
+
+## 程序化测试场景
+
+生成一个 `x∈[0,10] m、y∈[-5,5] m` 的 z-up 场景，包含门、柱子和桌子。所有几何体由程序生成，不依赖 Habitat 资产；起点和终点由具体任务决定，默认不写入：
+
+```bash
+cd /home/zxt/UAV_Basic_Skills/AeroVerbs
+PYTHONPATH=. python scripts/create_procedural_test_scene.py
+```
+
+默认产物位于 `generated_scenes/procedural_test_scene/`：对象-only GLB、带地面的雷达渲染 GLB、`metadata.json` 和对象体素占用文件。需要指定起点/终点时，在 Python 中传给 `create_test_scene(start=..., goal=...)`。
+
+基于该场景采集三个任务的首帧 RGB：
+
+```bash
+cd /home/zxt/UAV_Basic_Skills
+/home/zxt/miniconda3/envs/visfly/bin/python \
+  scripts/create_procedural_test_tasks.py \
+  --scene-glb AeroVerbs/generated_scenes/procedural_test_scene/procedural_test_scene.glb \
+  --output-root AeroVerbs/generated_scenes/procedural_test_tasks
+```
+
+任务输出在 `generated_scenes/procedural_test_tasks/`，每个任务目录包含 `task.json` 和 `initial_rgb.png`。三个任务均使用 `z=0.2 m`，并在水平面内初始正对目标障碍物。

@@ -266,27 +266,71 @@ def _near_footprint(points_xy: np.ndarray, target: SceneTarget) -> np.ndarray:
     return dist <= _footprint_radius(target) + 0.8
 
 
-def _crossed_opening(points: np.ndarray, target: SceneTarget, margin: float) -> bool:
-    """True once the trajectory has crossed the opening plane within the opening."""
+def _crossed_opening(
+    points: np.ndarray,
+    target: SceneTarget,
+    margin: float,
+    travel_axis: Optional[np.ndarray] = None,
+) -> bool:
+    """Return whether a trajectory crosses the target opening in local geometry.
+
+    The opening plane is perpendicular to the target normal.  When scene
+    metadata does not provide a normal, the task's start-to-goal direction is
+    used by ``CompletionJudge`` as a geometry-derived fallback.
+    """
     if len(points) < 2:
         return False
-    if target.opening_center is not None:
-        plane_x = float(target.opening_center[0])
-        y_center = float(target.opening_center[1])
-        half_y = 0.5  # opening half-width fallback
-        if target.bbox_min is not None and target.bbox_max is not None:
-            half_y = max(float(target.bbox_max[1] - target.bbox_min[1]) / 2.0, 0.5)
-    else:
-        plane_x = float(target.center[0])
-        y_center = float(target.center[1])
-        half_y = 0.8
-        if target.bbox_min is not None and target.bbox_max is not None:
-            half_y = max(float(target.bbox_max[1] - target.bbox_min[1]) / 2.0, 0.4) + 0.3
+    center = target.opening_center if target.opening_center is not None else target.center
+    normal = target.normal if target.normal is not None else travel_axis
+    if normal is None:
+        return False
+    normal = np.asarray(normal, dtype=float).reshape(-1)
+    if normal.size == 2:
+        normal = np.array([normal[0], normal[1], 0.0], dtype=float)
+    elif normal.size != 3:
+        return False
+    normal[2] = 0.0
+    norm = float(np.linalg.norm(normal[:2]))
+    if norm < 1e-8:
+        return False
+    normal /= norm
+    lateral = np.array([-normal[1], normal[0], 0.0], dtype=float)
 
-    within_y = np.abs(points[:, 1] - y_center) <= half_y
-    left = (points[:, 0] < plane_x) & (points[:, 0] >= plane_x - 0.3) & within_y
-    right = (points[:, 0] > plane_x) & (points[:, 0] <= plane_x + 0.3) & within_y
-    return bool(np.any(left)) and bool(np.any(right))
+    if target.width is not None:
+        half_width = max(float(target.width) * 0.5, 0.0)
+    elif target.bbox_min is not None and target.bbox_max is not None:
+        corners = np.array(
+            [[x, y] for x in (target.bbox_min[0], target.bbox_max[0])
+             for y in (target.bbox_min[1], target.bbox_max[1])], dtype=float
+        ) - center[:2]
+        half_width = max(float(np.max(np.abs(corners @ lateral[:2]))), 0.0)
+    else:
+        half_width = 0.8
+
+    opening_height = target.clearance_height or target.height
+    if opening_height is not None:
+        half_height = max(float(opening_height) * 0.5, 0.0)
+    elif target.bbox_min is not None and target.bbox_max is not None:
+        half_height = max(float(target.bbox_max[2] - target.bbox_min[2]) * 0.5, 0.0)
+    else:
+        half_height = 1.0
+
+    rel = points - center[None, :]
+    signed = rel @ normal
+    for p0, p1, s0, s1 in zip(points[:-1], points[1:], signed[:-1], signed[1:]):
+        if s0 == s1 or s0 * s1 > 0.0:
+            continue
+        alpha = float(np.clip(s0 / (s0 - s1), 0.0, 1.0))
+        crossing = p0 + alpha * (p1 - p0)
+        crossing_rel = crossing - center
+        lateral_coord = float(np.dot(crossing_rel, lateral))
+        vertical_coord = float(crossing_rel[2])
+        if (
+            abs(lateral_coord) <= half_width + margin
+            and abs(vertical_coord) <= half_height + margin
+        ):
+            return True
+    return False
 
 
 def _went_over(points: np.ndarray, target: SceneTarget, margin: float) -> bool:
@@ -313,6 +357,7 @@ def semantic_done_predicate(
     target: SceneTarget,
     margin: float,
     over_margin: Optional[float] = None,
+    travel_axis: Optional[np.ndarray] = None,
 ) -> bool:
     """Pure per-skill relationship predicate (no latching, no far-side check)."""
     pts = np.asarray(prefix_points, dtype=float)
@@ -322,7 +367,7 @@ def semantic_done_predicate(
         winding = _winding_class(pts[:, :2], target.center[:2])
         return winding == skill
     if skill == "through":
-        return _crossed_opening(pts, target, margin)
+        return _crossed_opening(pts, target, margin, travel_axis=travel_axis)
     if skill == "over":
         return _went_over(pts, target, margin if over_margin is None else over_margin)
     if skill == "under":
@@ -389,6 +434,7 @@ class CompletionJudge:
                 self.geometry.target,
                 self.cfg.vertical_margin,
                 over_margin=getattr(self.cfg, "over_vertical_margin", None),
+                travel_axis=self.geometry.travel_axis,
             )
 
         pos = np.asarray(current_position, dtype=float).reshape(3)

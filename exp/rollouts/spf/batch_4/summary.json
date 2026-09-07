@@ -1,0 +1,11 @@
+{
+  "model": "spf",
+  "batch_manifest": "/home/zxt/UAV_Basic_Skills/AeroVerbs/eval_manifests/batch_4.json",
+  "num_samples": 51,
+  "status_counts": {
+    "timeout": 30,
+    "collision": 18,
+    "infrastructure_error": 3
+  },
+  "results": "results.jsonl"
+}

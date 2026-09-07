@@ -1,0 +1,74 @@
+{
+  "batch_id": 3,
+  "complete": true,
+  "expected_samples": 51,
+  "missing_samples": 0,
+  "model": "openvla",
+  "model_id": "aeroverbs-openvla-b16-step10000-native-next-pose",
+  "per_skill": {
+    "around_left": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "collision": 2,
+        "success": 13
+      },
+      "success": 13,
+      "success_rate": 0.8666666666666667
+    },
+    "around_right": {
+      "expected": 15,
+      "missing": 0,
+      "processed": 15,
+      "status_counts": {
+        "collision": 2,
+        "success": 13
+      },
+      "success": 13,
+      "success_rate": 0.8666666666666667
+    },
+    "over": {
+      "expected": 9,
+      "missing": 0,
+      "processed": 9,
+      "status_counts": {
+        "success": 9
+      },
+      "success": 9,
+      "success_rate": 1.0
+    },
+    "through": {
+      "expected": 10,
+      "missing": 0,
+      "processed": 10,
+      "status_counts": {
+        "collision": 2,
+        "success": 8
+      },
+      "success": 8,
+      "success_rate": 0.8
+    },
+    "under": {
+      "expected": 2,
+      "missing": 0,
+      "processed": 2,
+      "status_counts": {
+        "success": 2
+      },
+      "success": 2,
+      "success_rate": 1.0
+    }
+  },
+  "processed_samples": 51,
+  "rollout_elapsed_s": 212.91899999999995,
+  "server_url": "http://127.0.0.1:5007/predict",
+  "status_counts": {
+    "collision": 6,
+    "success": 45
+  },
+  "success_count": 45,
+  "success_rate": 0.8823529411764706,
+  "success_rate_processed": 0.8823529411764706,
+  "updated_at": "2026-09-01T09:35:07+0800"
+}

@@ -20,6 +20,10 @@ class SceneTarget:
     bbox_min: Optional[np.ndarray] = None
     bbox_max: Optional[np.ndarray] = None
     opening_center: Optional[np.ndarray] = None
+    normal: Optional[np.ndarray] = None
+    width: Optional[float] = None
+    height: Optional[float] = None
+    clearance_height: Optional[float] = None
 
     @classmethod
     def from_meta(cls, meta: dict) -> "SceneTarget":
@@ -41,7 +45,25 @@ class SceneTarget:
             if obj.get("opening_center") is not None
             else None
         )
-        return cls(center=center, bbox_min=bbox_min, bbox_max=bbox_max, opening_center=opening_center)
+        normal = (
+            np.asarray(obj["normal"], dtype=float)
+            if obj.get("normal") is not None
+            else None
+        )
+        return cls(
+            center=center,
+            bbox_min=bbox_min,
+            bbox_max=bbox_max,
+            opening_center=opening_center,
+            normal=normal,
+            width=float(obj["width"]) if obj.get("width") is not None else None,
+            height=float(obj["height"]) if obj.get("height") is not None else None,
+            clearance_height=(
+                float(obj["clearance_height"])
+                if obj.get("clearance_height") is not None
+                else None
+            ),
+        )
 
 
 def _winding_class(points_xy: np.ndarray, center_xy: np.ndarray) -> str:

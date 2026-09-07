@@ -1,0 +1,205 @@
+{
+  "configuration": {
+    "distance_threshold_m": 0.5,
+    "exp_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/exp",
+    "expert_crop_rule": "max_x",
+    "expert_crop_rule_description": "crop expert path at its first interpolated crossing of the rollout maximum x; use the full expert path when rollout maximum x reaches or exceeds expert maximum x",
+    "expert_path_source": "frames.json:camera_position_std",
+    "expert_root": "/data/UAV_Basic_Skills/trajctorys",
+    "gate_used": false,
+    "models": [
+      "aerialclaw"
+    ],
+    "resample_step_m": 0.1
+  },
+  "overall": {
+    "aerialclaw": {
+      "cls": {
+        "mean": 0.05791814584318186,
+        "median": 0.017006211117116185
+      },
+      "count": 51,
+      "expert_crop_fraction": {
+        "mean": 0.12340931642046715,
+        "median": 0.04260945082826394
+      },
+      "length_score": {
+        "mean": 0.06944084001461538,
+        "median": 0.02285239808643526
+      },
+      "ndtw": {
+        "mean": 0.03712498807594181,
+        "median": 1.3989649320109595e-37
+      },
+      "path_coverage": {
+        "mean": 0.803996440822798,
+        "median": 0.8736278450747823
+      },
+      "rollout_length_m": {
+        "mean": 14.847485618966768,
+        "median": 14.897130854795918
+      },
+      "status_counts": {
+        "success": 2,
+        "timeout": 49
+      }
+    }
+  },
+  "per_skill": {
+    "aerialclaw": {
+      "around_left": {
+        "cls": {
+          "mean": 0.03575707754004172,
+          "median": 0.021664403892310814
+        },
+        "count": 15,
+        "expert_crop_fraction": {
+          "mean": 0.13717126408467045,
+          "median": 0.09791578318381128
+        },
+        "length_score": {
+          "mean": 0.052817270574319425,
+          "median": 0.04329188475534515
+        },
+        "ndtw": {
+          "mean": 2.1703624054560403e-05,
+          "median": 2.353196082827651e-10
+        },
+        "path_coverage": {
+          "mean": 0.7307937882389844,
+          "median": 0.811616916623122
+        },
+        "rollout_length_m": {
+          "mean": 12.379278211458871,
+          "median": 11.482484486722743
+        },
+        "status_counts": {
+          "timeout": 15
+        }
+      },
+      "around_right": {
+        "cls": {
+          "mean": 0.020608553275945126,
+          "median": 0.020291466146304515
+        },
+        "count": 15,
+        "expert_crop_fraction": {
+          "mean": 0.05188819178676053,
+          "median": 0.04164182740733575
+        },
+        "length_score": {
+          "mean": 0.023420769167639847,
+          "median": 0.02286326669891654
+        },
+        "ndtw": {
+          "mean": 6.660025322509413e-11,
+          "median": 1.3989649320109595e-37
+        },
+        "path_coverage": {
+          "mean": 0.8983359211693511,
+          "median": 0.8967304949954322
+        },
+        "rollout_length_m": {
+          "mean": 14.280096551215914,
+          "median": 14.897130854795915
+        },
+        "status_counts": {
+          "timeout": 15
+        }
+      },
+      "over": {
+        "cls": {
+          "mean": 0.009676096280073048,
+          "median": 0.008846625961114138
+        },
+        "count": 9,
+        "expert_crop_fraction": {
+          "mean": 0.07459586627036967,
+          "median": 0.03790737554016124
+        },
+        "length_score": {
+          "mean": 0.015895488363605367,
+          "median": 0.010760545084433016
+        },
+        "ndtw": {
+          "mean": 5.167742403858452e-19,
+          "median": 0.0
+        },
+        "path_coverage": {
+          "mean": 0.8297745023299171,
+          "median": 0.8567549703962783
+        },
+        "rollout_length_m": {
+          "mean": 18.9518587025994,
+          "median": 20.0
+        },
+        "status_counts": {
+          "timeout": 9
+        }
+      },
+      "through": {
+        "cls": {
+          "mean": 0.1890031255096143,
+          "median": 0.014502758978559892
+        },
+        "count": 10,
+        "expert_crop_fraction": {
+          "mean": 0.23710710661348502,
+          "median": 0.14917325781724605
+        },
+        "length_score": {
+          "mean": 0.210354989395756,
+          "median": 0.03236830101256285
+        },
+        "ndtw": {
+          "mean": 0.18930488365132103,
+          "median": 1.4620991307680385e-27
+        },
+        "path_coverage": {
+          "mean": 0.7328607559290977,
+          "median": 0.8736960126667113
+        },
+        "rollout_length_m": {
+          "mean": 15.056441680378878,
+          "median": 19.998403255535642
+        },
+        "status_counts": {
+          "success": 2,
+          "timeout": 8
+        }
+      },
+      "under": {
+        "cls": {
+          "mean": 0.06561242707283599,
+          "median": 0.06561242707283599
+        },
+        "count": 2,
+        "expert_crop_fraction": {
+          "mean": 0.20777471840209133,
+          "median": 0.20777471840209133
+        },
+        "length_score": {
+          "mean": 0.07565147769299367,
+          "median": 0.07565147769299367
+        },
+        "ndtw": {
+          "mean": 6.309337724018457e-28,
+          "median": 6.309337724018457e-28
+        },
+        "path_coverage": {
+          "mean": 0.885147380288714,
+          "median": 0.885147380288714
+        },
+        "rollout_length_m": {
+          "mean": 18.100000000000023,
+          "median": 18.100000000000023
+        },
+        "status_counts": {
+          "timeout": 2
+        }
+      }
+    }
+  },
+  "record_count": 51,
+  "schema_version": 1
+}

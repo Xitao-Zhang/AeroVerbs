@@ -1,0 +1,393 @@
+{
+  "configuration": {
+    "exp_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/exp",
+    "models": [
+      "bc",
+      "dagger",
+      "openvla",
+      "spf",
+      "aerialclaw"
+    ],
+    "reference_path_source": "frozen Fast-Planner reference paths",
+    "reference_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/eval_reference_paths",
+    "spl_definition": "mean_i[S_i * L_i / max(P_i, L_i)]",
+    "success_definition": "status == success"
+  },
+  "overall": {
+    "aerialclaw": {
+      "count": 51,
+      "missing_trajectory_count": 0,
+      "spl": 0.038029507440733024,
+      "status_counts": {
+        "success": 2,
+        "timeout": 49
+      },
+      "success_count": 2,
+      "success_rate": 0.0392156862745098,
+      "successful_path_efficiency_mean": 0.9697524397386921
+    },
+    "bc": {
+      "count": 254,
+      "missing_trajectory_count": 0,
+      "spl": 0.7099706698335907,
+      "status_counts": {
+        "collision": 28,
+        "success": 209,
+        "timeout": 17
+      },
+      "success_count": 209,
+      "success_rate": 0.8228346456692913,
+      "successful_path_efficiency_mean": 0.8628351681231198
+    },
+    "dagger": {
+      "count": 254,
+      "missing_trajectory_count": 0,
+      "spl": 0.7974555825167144,
+      "status_counts": {
+        "collision": 35,
+        "success": 217,
+        "timeout": 2
+      },
+      "success_count": 217,
+      "success_rate": 0.8543307086614174,
+      "successful_path_efficiency_mean": 0.933427271701592
+    },
+    "openvla": {
+      "count": 254,
+      "missing_trajectory_count": 0,
+      "spl": 0.852169751535044,
+      "status_counts": {
+        "collision": 26,
+        "success": 228
+      },
+      "success_count": 228,
+      "success_rate": 0.8976377952755905,
+      "successful_path_efficiency_mean": 0.9493470039030754
+    },
+    "spf": {
+      "count": 254,
+      "missing_trajectory_count": 8,
+      "spl": 0.031677716926853776,
+      "status_counts": {
+        "collision": 91,
+        "infrastructure_error": 8,
+        "success": 10,
+        "timeout": 145
+      },
+      "success_count": 10,
+      "success_rate": 0.03937007874015748,
+      "successful_path_efficiency_mean": 0.8046140099420859
+    }
+  },
+  "per_skill": {
+    "aerialclaw": {
+      "around_left": {
+        "count": 15,
+        "missing_trajectory_count": 0,
+        "spl": 0.0,
+        "status_counts": {
+          "timeout": 15
+        },
+        "success_count": 0,
+        "success_rate": 0.0,
+        "successful_path_efficiency_mean": 0.0
+      },
+      "around_right": {
+        "count": 15,
+        "missing_trajectory_count": 0,
+        "spl": 0.0,
+        "status_counts": {
+          "timeout": 15
+        },
+        "success_count": 0,
+        "success_rate": 0.0,
+        "successful_path_efficiency_mean": 0.0
+      },
+      "over": {
+        "count": 9,
+        "missing_trajectory_count": 0,
+        "spl": 0.0,
+        "status_counts": {
+          "timeout": 9
+        },
+        "success_count": 0,
+        "success_rate": 0.0,
+        "successful_path_efficiency_mean": 0.0
+      },
+      "through": {
+        "count": 10,
+        "missing_trajectory_count": 0,
+        "spl": 0.19395048794773842,
+        "status_counts": {
+          "success": 2,
+          "timeout": 8
+        },
+        "success_count": 2,
+        "success_rate": 0.2,
+        "successful_path_efficiency_mean": 0.9697524397386921
+      },
+      "under": {
+        "count": 2,
+        "missing_trajectory_count": 0,
+        "spl": 0.0,
+        "status_counts": {
+          "timeout": 2
+        },
+        "success_count": 0,
+        "success_rate": 0.0,
+        "successful_path_efficiency_mean": 0.0
+      }
+    },
+    "bc": {
+      "around_left": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.6412414762926978,
+        "status_counts": {
+          "success": 63,
+          "timeout": 12
+        },
+        "success_count": 63,
+        "success_rate": 0.84,
+        "successful_path_efficiency_mean": 0.7633827098722593
+      },
+      "around_right": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.5777912461897075,
+        "status_counts": {
+          "collision": 15,
+          "success": 55,
+          "timeout": 5
+        },
+        "success_count": 55,
+        "success_rate": 0.7333333333333333,
+        "successful_path_efficiency_mean": 0.7878971538950557
+      },
+      "over": {
+        "count": 44,
+        "missing_trajectory_count": 0,
+        "spl": 0.6948702562892528,
+        "status_counts": {
+          "collision": 13,
+          "success": 31
+        },
+        "success_count": 31,
+        "success_rate": 0.7045454545454546,
+        "successful_path_efficiency_mean": 0.9862674605395846
+      },
+      "through": {
+        "count": 50,
+        "missing_trajectory_count": 0,
+        "spl": 0.9709755606379801,
+        "status_counts": {
+          "success": 50
+        },
+        "success_count": 50,
+        "success_rate": 1.0,
+        "successful_path_efficiency_mean": 0.9709755606379801
+      },
+      "under": {
+        "count": 10,
+        "missing_trajectory_count": 0,
+        "spl": 0.9782026642925501,
+        "status_counts": {
+          "success": 10
+        },
+        "success_count": 10,
+        "success_rate": 1.0,
+        "successful_path_efficiency_mean": 0.9782026642925501
+      }
+    },
+    "dagger": {
+      "around_left": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.6891187375665108,
+        "status_counts": {
+          "collision": 16,
+          "success": 59
+        },
+        "success_count": 59,
+        "success_rate": 0.7866666666666666,
+        "successful_path_efficiency_mean": 0.8759983952116662
+      },
+      "around_right": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.90443692079646,
+        "status_counts": {
+          "collision": 2,
+          "success": 73
+        },
+        "success_count": 73,
+        "success_rate": 0.9733333333333334,
+        "successful_path_efficiency_mean": 0.929216014516911
+      },
+      "over": {
+        "count": 44,
+        "missing_trajectory_count": 0,
+        "spl": 0.5880233417403301,
+        "status_counts": {
+          "collision": 16,
+          "success": 26,
+          "timeout": 2
+        },
+        "success_count": 26,
+        "success_rate": 0.5909090909090909,
+        "successful_path_efficiency_mean": 0.9951164244836355
+      },
+      "through": {
+        "count": 50,
+        "missing_trajectory_count": 0,
+        "spl": 0.947580695164379,
+        "status_counts": {
+          "collision": 1,
+          "success": 49
+        },
+        "success_count": 49,
+        "success_rate": 0.98,
+        "successful_path_efficiency_mean": 0.9669190766983459
+      },
+      "under": {
+        "count": 10,
+        "missing_trajectory_count": 0,
+        "spl": 0.9784981787229168,
+        "status_counts": {
+          "success": 10
+        },
+        "success_count": 10,
+        "success_rate": 1.0,
+        "successful_path_efficiency_mean": 0.9784981787229168
+      }
+    },
+    "openvla": {
+      "around_left": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.734212988414522,
+        "status_counts": {
+          "collision": 16,
+          "success": 59
+        },
+        "success_count": 59,
+        "success_rate": 0.7866666666666666,
+        "successful_path_efficiency_mean": 0.933321595442189
+      },
+      "around_right": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.8911270971510727,
+        "status_counts": {
+          "collision": 4,
+          "success": 71
+        },
+        "success_count": 71,
+        "success_rate": 0.9466666666666667,
+        "successful_path_efficiency_mean": 0.9413314406525417
+      },
+      "over": {
+        "count": 44,
+        "missing_trajectory_count": 0,
+        "spl": 0.9566576880895146,
+        "status_counts": {
+          "success": 44
+        },
+        "success_count": 44,
+        "success_rate": 1.0,
+        "successful_path_efficiency_mean": 0.9566576880895146
+      },
+      "through": {
+        "count": 50,
+        "missing_trajectory_count": 0,
+        "spl": 0.8530651098570486,
+        "status_counts": {
+          "collision": 6,
+          "success": 44
+        },
+        "success_count": 44,
+        "success_rate": 0.88,
+        "successful_path_efficiency_mean": 0.9693921702921007
+      },
+      "under": {
+        "count": 10,
+        "missing_trajectory_count": 0,
+        "spl": 0.9804416703690488,
+        "status_counts": {
+          "success": 10
+        },
+        "success_count": 10,
+        "success_rate": 1.0,
+        "successful_path_efficiency_mean": 0.9804416703690488
+      }
+    },
+    "spf": {
+      "around_left": {
+        "count": 75,
+        "missing_trajectory_count": 1,
+        "spl": 0.04232692380514475,
+        "status_counts": {
+          "collision": 26,
+          "infrastructure_error": 1,
+          "success": 4,
+          "timeout": 44
+        },
+        "success_count": 4,
+        "success_rate": 0.05333333333333334,
+        "successful_path_efficiency_mean": 0.7936298213464641
+      },
+      "around_right": {
+        "count": 75,
+        "missing_trajectory_count": 0,
+        "spl": 0.0,
+        "status_counts": {
+          "collision": 42,
+          "timeout": 33
+        },
+        "success_count": 0,
+        "success_rate": 0.0,
+        "successful_path_efficiency_mean": 0.0
+      },
+      "over": {
+        "count": 44,
+        "missing_trajectory_count": 7,
+        "spl": 0.11071865486443187,
+        "status_counts": {
+          "collision": 3,
+          "infrastructure_error": 7,
+          "success": 6,
+          "timeout": 28
+        },
+        "success_count": 6,
+        "success_rate": 0.13636363636363635,
+        "successful_path_efficiency_mean": 0.811936802339167
+      },
+      "through": {
+        "count": 50,
+        "missing_trajectory_count": 0,
+        "spl": 0.0,
+        "status_counts": {
+          "collision": 19,
+          "timeout": 31
+        },
+        "success_count": 0,
+        "success_rate": 0.0,
+        "successful_path_efficiency_mean": 0.0
+      },
+      "under": {
+        "count": 10,
+        "missing_trajectory_count": 0,
+        "spl": 0.0,
+        "status_counts": {
+          "collision": 1,
+          "timeout": 9
+        },
+        "success_count": 0,
+        "success_rate": 0.0,
+        "successful_path_efficiency_mean": 0.0
+      }
+    }
+  },
+  "record_count": 1067,
+  "schema_version": 1
+}

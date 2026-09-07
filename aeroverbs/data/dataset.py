@@ -1,9 +1,9 @@
 """Dataset for sequence-level behavior cloning of AeroVerbs.
 
-Each sample directory under ``data_root/<skill>/<scene_id>/`` contains a
-``meta.json``, ``frames.json``, ``trajectory.json`` and a one-shot
-``intention_heatmap.npy``. Frames are split into overlapping windows of length
-``seq_len`` so the GRU can learn maneuver progress from the radar sequence.
+Each sample directory under ``data_root/<skill>/<scene_id>/`` contains the
+trajectory metadata, LiDAR frames, downward ranges, and precomputed 3D gate
+geometry used by the policy. Frames can be loaded as fixed windows or complete
+trajectories.
 """
 
 from __future__ import annotations
@@ -20,7 +20,6 @@ import torch
 from torch.utils.data import Dataset
 
 from ..config import DataConfig
-from .heatmap import bbox_to_heatmap
 from .labels import (
     build_action_history,
     compute_action_labels,
@@ -29,7 +28,7 @@ from .labels import (
     skill_to_id,
 )
 from .gate_features import GateGeometry, gate_features_for_pose, gate_progress_label
-from .transforms import load_heatmap_npy, preprocess_radar
+from .transforms import preprocess_radar
 
 
 def build_sample_index(data_root: str, skills: List[str]) -> List[str]:
@@ -137,22 +136,6 @@ def _load_skill_id(sample_dir: str) -> int:
     meta = _load_meta(sample_dir)
     skill = meta.get("skill") or os.path.basename(os.path.dirname(sample_dir))
     return skill_to_id(skill)
-
-
-@functools.lru_cache(maxsize=None)
-def _load_heatmap(sample_dir: str, size: Tuple[int, int]) -> torch.Tensor:
-    path = os.path.join(sample_dir, "intention_heatmap.npy")
-    if os.path.exists(path):
-        return load_heatmap_npy(path, size=size)
-    # Fallback: rebuild from the stored bbox when the npy is missing.
-    meta = _load_meta(sample_dir)
-    bbox = meta.get("initial_bbox_xyxy")
-    image_size = tuple(meta.get("image_size", [640, 480]))
-    skill = meta.get("skill", "through")
-    hm = bbox_to_heatmap(bbox, image_size=image_size, skill=skill)
-    from .transforms import resize_heatmap
-
-    return resize_heatmap(torch.from_numpy(hm), size=size)
 
 
 @functools.lru_cache(maxsize=None)
@@ -364,7 +347,6 @@ class ManeuverDataset(Dataset):
         self.seq_len = cfg.seq_len
         self.stride = cfg.stride
         self.offsets = tuple(cfg.future_offsets)
-        self.heatmap_size = tuple(cfg.heatmap_size)
 
         self.index: List[Tuple[str, int]] = []
         for d in self.sample_dirs:
@@ -415,7 +397,6 @@ class ManeuverDataset(Dataset):
         )
 
         out = {
-            "heatmap": _load_heatmap(sample_dir, self.heatmap_size),  # [1, Hh, Wh]
             "skill_id": torch.tensor(_load_skill_id(sample_dir), dtype=torch.long),
             "radar": radar,
             "action_history": torch.from_numpy(action_history[start:end]),  # [T, H, 4]
@@ -452,7 +433,6 @@ class TrajectoryDataset(Dataset):
         self.sample_dirs = list(sample_dirs)
         self.cfg = cfg
         self.offsets = tuple(cfg.future_offsets)
-        self.heatmap_size = tuple(cfg.heatmap_size)
         self.lengths = [_load_frames(d)["num_frames"] for d in self.sample_dirs]
 
     def __len__(self) -> int:
@@ -490,7 +470,6 @@ class TrajectoryDataset(Dataset):
 
         out = {
             "sample_dir": sample_dir,
-            "heatmap": _load_heatmap(sample_dir, self.heatmap_size),  # [1, Hh, Wh]
             "skill_id": torch.tensor(_load_skill_id(sample_dir), dtype=torch.long),
             "radar": radar,
             "action_history": torch.from_numpy(action_history),  # [T, H, 4]
@@ -543,7 +522,6 @@ def trajectory_collate_fn(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, tor
 
     return {
         "sample_dir": [item["sample_dir"] for item in batch],
-        "heatmap": torch.stack([item["heatmap"] for item in batch], dim=0),  # [B,1,Hh,Wh]
         "skill_id": torch.stack([item["skill_id"] for item in batch], dim=0),  # [B]
         "radar": stack_time("radar"),  # [B,Tmax,3,H,W]
         "action_history": stack_time("action_history"),  # [B,Tmax,H,4]

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Tuple
+from typing import Optional, Tuple
 
 
 Vector3 = Tuple[float, float, float]
@@ -44,6 +44,6 @@ class PlanningRequest:
 class SemanticScene:
     scene_id: str
     uav_id: str
-    start: Vector3
-    goal: Vector3
+    start: Optional[Vector3]
+    goal: Optional[Vector3]
     registry: object

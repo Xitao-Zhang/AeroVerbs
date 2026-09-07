@@ -1,0 +1,33 @@
+{
+  "batch_id": 1,
+  "checkpoint": null,
+  "checkpoint_sha256": null,
+  "created_at": "2026-09-04T10:08:12+0800",
+  "data_root": "/home/zxt/UAV_Basic_Skills/AeroVerbs/data/trajctorys",
+  "expected_samples": 51,
+  "host": "zxt-4090-laptop",
+  "manifest": "/home/zxt/UAV_Basic_Skills/AeroVerbs/eval_manifests/batch_1.json",
+  "manifest_sha256": "50181be95e63fa930f2ab5d7a7688e94824bade38ae36fde7f33b19105270b5f",
+  "model": "aerialclaw",
+  "rollout": {
+    "aerialclaw_python": "/home/zxt/miniconda3/envs/aerialclaw-eval/bin/python",
+    "aerialclaw_root": "/home/zxt/AerialClaw",
+    "agent_max_iterations": 40,
+    "collision_check": true,
+    "default_flight_speed_mps": 1.0,
+    "drone_radius": 0.15,
+    "max_steps": 200,
+    "minimum_flight_speed_mps": 0.1,
+    "minimum_safe_distance_m": 0.3,
+    "request_timeout_s": 300.0,
+    "rgb_gpu_device_id": -1,
+    "rgb_height": 480,
+    "rgb_width": 640,
+    "step_size": 0.1,
+    "subprocess_timeout_s": 1800.0,
+    "success_authority": "CompletionJudge",
+    "turn_rate": 0.45,
+    "uses_gate_correction": false
+  },
+  "schema_version": 1
+}
